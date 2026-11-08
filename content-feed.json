@@ -1,0 +1,13 @@
+{
+  "product": "VUE",
+  "schemaVersion": 1,
+  "revision": "2026-11-06.1",
+  "updatedAt": "2026-11-06T00:00:00+03:00",
+  "backgrounds": [
+    "riyadh-kingdom-centre.jpg",
+    "jeddah-albalad.jpg",
+    "alula-elephant-rock.jpg",
+    "abha-asir.jpg",
+    "diriyah-turaif.jpg"
+  ]
+}
