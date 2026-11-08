@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>VUE Kids Player</title>
+<style>
+html,body{margin:0;width:100%;height:100%;background:#000;overflow:hidden}
+#p,#p iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* Shield: nothing inside the YouTube frame can be clicked or pointed at
+   (no logo, title, "watch on YouTube" or suggested-video links). */
+#shield{position:absolute;inset:0;z-index:2;background:transparent}
+</style>
+</head>
+<body>
+<div id="p"></div><div id="shield"></div>
+<script>
+/* VUE Kids player. Controlled only by the VUE app via postMessage:
+   {cmd:"load", id}, {cmd:"toggle"}, {cmd:"seek", by:seconds}, {cmd:"stop"}.
+   Reports {vue:"player", ev:"ready"|"playing"|"paused"|"ended"|"error", ...}. */
+(function () {
+  "use strict";
+  var player = null, pending = null, ID = /^[A-Za-z0-9_-]{11}$/;
+  function tell(ev, extra) { var m = { vue: "player", ev: ev }; for (var k in extra || {}) m[k] = extra[k]; try { parent.postMessage(m, "*"); } catch (e) {} }
+  function first() { var m = /[?&]v=([A-Za-z0-9_-]{11})/.exec(location.search); return m ? m[1] : null; }
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player("p", {
+      videoId: first() || "",
+      host: "https://www.youtube-nocookie.com",
+      playerVars: { autoplay: 1, controls: 0, rel: 0, fs: 0, disablekb: 1, iv_load_policy: 3, modestbranding: 1, playsinline: 1, cc_load_policy: 0, origin: location.origin },
+      events: {
+        onReady: function () { tell("ready"); if (pending) { load(pending); pending = null; } else try { player.playVideo(); } catch (e) {} },
+        onStateChange: function (e) {
+          if (e.data === 1) tell("playing", { duration: player.getDuration() });
+          else if (e.data === 2) tell("paused");
+          else if (e.data === 0) tell("ended");
+        },
+        onError: function (e) { tell("error", { code: e.data }); }
+      }
+    });
+  };
+  function load(id) { if (!ID.test(id)) return; if (!player || !player.loadVideoById) { pending = id; return; } player.loadVideoById(id); }
+  window.addEventListener("message", function (e) {
+    var d = e.data || {}; if (!d || typeof d.cmd !== "string") return;
+    if (d.cmd === "load") load(d.id);
+    else if (!player || !player.getPlayerState) return;
+    else if (d.cmd === "toggle") { if (player.getPlayerState() === 1) player.pauseVideo(); else player.playVideo(); }
+    else if (d.cmd === "seek") player.seekTo(Math.max(0, player.getCurrentTime() + (+d.by || 0)), true);
+    else if (d.cmd === "stop") player.stopVideo();
+  });
+  var s = document.createElement("script"); s.src = "https://www.youtube.com/iframe_api"; document.head.appendChild(s);
+})();
+</script>
+</body>
+</html>
