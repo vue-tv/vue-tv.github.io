@@ -1,124 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#070a1d">
-  <meta name="description" content="VUE — رؤية تلفزيونية عربية تجمع مواقيت الصلاة والمباريات والبث القرآني والتطبيقات في مكان واحد.">
-  <title>رؤية | الشاشة المكتملة</title>
-  <link rel="icon" type="image/png" href="assets/logo.png">
-  <style>
-    @font-face{font-family:"Thmanyah Sans";src:url("assets/fonts/thmanyahsans-Light.otf") format("opentype");font-style:normal;font-weight:300;font-display:swap}
-    @font-face{font-family:"Thmanyah Sans";src:url("assets/fonts/thmanyahsans-Regular.otf") format("opentype");font-style:normal;font-weight:400;font-display:swap}
-    @font-face{font-family:"Thmanyah Sans";src:url("assets/fonts/thmanyahsans-Medium.otf") format("opentype");font-style:normal;font-weight:500;font-display:swap}
-    @font-face{font-family:"Thmanyah Sans";src:url("assets/fonts/thmanyahsans-Bold.otf") format("opentype");font-style:normal;font-weight:700;font-display:swap}
-    @font-face{font-family:"Thmanyah Sans";src:url("assets/fonts/thmanyahsans-Black.otf") format("opentype");font-style:normal;font-weight:900;font-display:swap}
-    :root{color-scheme:dark;--bg:#070a1d;--panel:#0b122c;--panel-2:#101d42;--line:rgba(104,133,255,.24);--text:#f5f8ff;--muted:#b4c2d5;--blue:#326bff;--cyan:#28d8ff;--violet:#a82cff;--gold:#eecb76;--green:#90e4bd;--radius:24px;--max:1180px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:"Thmanyah Sans","Noto Sans Arabic",Tahoma,Arial,sans-serif;line-height:1.75}a{color:inherit;text-decoration:none}button,a{ -webkit-tap-highlight-color:transparent}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}
-    .hero{min-height:680px;position:relative;isolation:isolate;overflow:hidden;background:#08162a}.hero:before{content:"";position:absolute;inset:0;z-index:-2;background:linear-gradient(90deg,rgba(5,13,24,.83),rgba(5,13,24,.38)),url("assets/riyadh.jpg") center 48%/cover}.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,12,22,.55) 0%,transparent 38%,#07111f 100%)}
-    .nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:20px}.brand img{width:53px;height:53px;border-radius:15px;object-fit:cover;background:#fff}.navlinks{display:flex;align-items:center;gap:26px;color:#e1eafa;font-size:14px}.navlinks a:hover{color:var(--cyan)}.nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid rgba(137,205,255,.38);border-radius:999px;padding:10px 17px;background:rgba(29,102,171,.34);font-weight:800;transition:.18s ease}.nav-cta:hover,.button:hover{transform:translateY(-2px);background:rgba(42,145,225,.48)}
-    .hero-content{padding:95px 0 120px;max-width:760px}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--cyan);font-weight:800;font-size:14px}.eyebrow:before{content:"";width:24px;height:2px;background:var(--cyan);border-radius:2px}.hero h1{font-size:clamp(42px,7vw,76px);line-height:1.15;margin:17px 0 19px;letter-spacing:-1.5px}.hero h1 span{color:var(--cyan)}.hero p{max-width:660px;color:#d2deec;font-size:clamp(17px,2vw,21px);margin:0}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.button.primary{background:linear-gradient(120deg,#1088dc,#2864c7);border-color:transparent;box-shadow:0 10px 35px rgba(24,118,219,.28)}.button.ghost{background:rgba(4,14,25,.34)}.stats{display:flex;gap:26px;margin-top:48px;flex-wrap:wrap;color:#d7e1ee;font-size:14px}.stats strong{display:block;font-size:20px;color:white}
-    .section{padding:72px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:28px}.section-head h2{font-size:clamp(26px,4vw,38px);line-height:1.25;margin:0 0 8px}.section-head p{margin:0;color:var(--muted);max-width:680px}.kicker{color:var(--cyan);font-weight:800;font-size:13px;letter-spacing:.3px;margin-bottom:9px}.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}.feature,.platform,.step-card{background:linear-gradient(145deg,rgba(16,39,70,.94),rgba(9,26,47,.95));border:1px solid var(--line);border-radius:var(--radius);padding:23px;box-shadow:0 16px 36px rgba(0,0,0,.13)}.feature-icon{width:45px;height:45px;border-radius:15px;display:grid;place-items:center;background:rgba(41,146,220,.18);color:var(--cyan);font-size:22px;margin-bottom:16px}.feature h3,.platform h3{font-size:19px;margin:0 0 7px}.feature p,.platform p,.step-card p{font-size:14px;color:var(--muted);margin:0}.features .feature:nth-child(4) .feature-icon{color:var(--gold);background:rgba(238,203,118,.13)}
-    .platform-section{background:linear-gradient(180deg,transparent,rgba(12,29,51,.35),transparent)}.platforms{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.platform{position:relative;display:flex;flex-direction:column;min-height:360px;padding:26px}.platform .platform-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.platform .symbol{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;background:rgba(48,163,245,.15);color:var(--cyan);font-size:24px;font-weight:900}.badge{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:4px 10px;color:var(--muted);font-size:11px;font-weight:800}.badge.ready{color:var(--green);border-color:rgba(144,228,189,.28);background:rgba(144,228,189,.08)}.badge.later{color:var(--gold);border-color:rgba(238,203,118,.28);background:rgba(238,203,118,.08)}.platform h3{font-size:23px}.platform .lead{min-height:58px}.file-list{display:grid;gap:9px;margin:20px 0}.file-link{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 13px;border:1px solid rgba(134,186,233,.16);border-radius:13px;background:rgba(3,13,25,.32);font-size:13px;font-weight:800}.file-link:hover{border-color:rgba(74,183,255,.55);background:rgba(26,86,141,.24)}.file-link small{color:var(--muted);font-weight:500}.platform .button{margin-top:auto;width:100%;font-size:14px}.platform .button.disabled{opacity:.58;cursor:default;background:rgba(20,33,47,.65);border-color:var(--line)}
-    .guide{display:grid;grid-template-columns:1fr 1fr;gap:16px}.guide details{border:1px solid var(--line);background:rgba(12,29,51,.77);border-radius:18px;padding:0 20px}.guide details[open]{background:linear-gradient(145deg,rgba(16,39,70,.96),rgba(9,26,47,.96))}.guide summary{list-style:none;cursor:pointer;padding:18px 0;font-weight:900;display:flex;align-items:center;justify-content:space-between;gap:12px}.guide summary::-webkit-details-marker{display:none}.guide summary:after{content:"＋";color:var(--cyan);font-size:18px}.guide details[open] summary:after{content:"−"}.guide .body{padding:0 0 20px;color:var(--muted);font-size:14px}.guide ol,.guide ul{padding-right:21px;margin:9px 0}.guide li{padding:3px 0}.guide a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}.terminal{direction:ltr;text-align:left;white-space:pre-wrap;overflow-wrap:anywhere;padding:14px 16px;border-radius:13px;background:#050b18;border:1px solid rgba(104,133,255,.3);color:#d8e8ff;font:13px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto}.terminal code{direction:ltr}.note{padding:13px 15px;border-radius:13px;background:rgba(238,203,118,.09);border:1px solid rgba(238,203,118,.21);color:#f4e4bc;margin-top:14px;font-size:13px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.step-card{min-height:176px}.step-no{font-size:13px;color:var(--cyan);font-weight:900;margin-bottom:13px}.step-card h3{font-size:17px;margin:0 0 6px}.contact{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 32px;border:1px solid rgba(100,190,255,.25);border-radius:24px;background:radial-gradient(ellipse at 10% 20%,rgba(31,124,205,.24),transparent 45%),#0b1b30}.contact h2{font-size:24px;margin:0 0 4px}.contact p{color:var(--muted);margin:0;font-size:14px}.footer{padding:26px 0 38px;color:#8fa2b9;font-size:12px}.footer-inner{border-top:1px solid var(--line);padding-top:18px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}.footer a{color:#c8d7e8}.footer-social{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.footer-social a{border:1px solid rgba(104,190,255,.22);border-radius:999px;padding:5px 10px;text-decoration:none}.footer-social a:hover{border-color:var(--cyan);color:#fff}.toast{position:fixed;left:20px;bottom:20px;background:#152c48;border:1px solid var(--line);padding:10px 15px;border-radius:12px;color:white;opacity:0;transform:translateY(8px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:translateY(0)}
-    @media(max-width:900px){.features{grid-template-columns:repeat(2,1fr)}.platforms{grid-template-columns:1fr}.platform{min-height:0}.platform .lead{min-height:0}.steps{grid-template-columns:1fr}.hero{min-height:620px}.hero-content{padding-top:80px}.section-head{display:block}.section-head .button{margin-top:15px}}
-    @media(max-width:620px){.wrap{width:min(100% - 28px,var(--max))}.nav{padding:15px 0}.brand{font-size:16px}.brand img{width:44px;height:44px}.navlinks>a:not(.nav-cta){display:none}.nav-cta{padding:8px 12px;font-size:12px}.hero{min-height:650px}.hero-content{padding:78px 0 96px}.hero h1{font-size:47px}.hero p{font-size:17px}.hero-actions .button{width:100%}.stats{gap:18px;margin-top:34px}.stats strong{font-size:18px}.section{padding:52px 0}.features{gap:10px}.feature{padding:17px;border-radius:18px}.feature h3{font-size:16px}.feature p{font-size:12px}.feature-icon{width:39px;height:39px;font-size:19px;margin-bottom:12px}.guide{grid-template-columns:1fr}.contact{display:block;padding:23px}.contact .button{margin-top:18px;width:100%}.footer-inner{display:block}.footer-inner span{display:block;margin-top:8px}.footer-social{margin-top:8px}}
-    body{background:radial-gradient(ellipse at 86% 4%,rgba(87,40,204,.17),transparent 34%),radial-gradient(ellipse at 9% 42%,rgba(0,165,255,.11),transparent 37%),var(--bg)}
-    .hero{background:#070a1d}.hero:before{background:radial-gradient(ellipse at 88% 16%,rgba(125,36,235,.25),transparent 36%),radial-gradient(ellipse at 28% 26%,rgba(13,156,255,.18),transparent 40%),linear-gradient(90deg,rgba(5,8,22,.86),rgba(5,9,25,.45)),url("assets/riyadh.jpg") center 48%/cover}
-    .brand img{object-fit:cover;border:1px solid rgba(101,142,255,.6);box-shadow:0 0 24px rgba(35,122,255,.23),0 0 35px rgba(156,44,255,.18)}
-    .hero h1 span{background:linear-gradient(90deg,var(--cyan),#6481ff,var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .nav-cta,.button{border-color:rgba(116,143,255,.42);background:rgba(32,74,155,.24)}
-    .nav-cta:hover,.button:hover{background:rgba(60,70,188,.35)}
-    .button.primary{background:linear-gradient(115deg,#08bce9,#315fff 58%,#932dff);box-shadow:0 10px 35px rgba(42,92,255,.3),0 0 28px rgba(156,44,255,.15)}
-    .feature-icon,.platform .symbol{background:linear-gradient(145deg,rgba(0,202,255,.2),rgba(68,88,255,.2),rgba(154,43,255,.16));color:#91eaff;box-shadow:inset 0 0 20px rgba(80,130,255,.08)}
-    .file-link:hover{border-color:rgba(104,133,255,.65);background:linear-gradient(100deg,rgba(12,181,230,.1),rgba(123,48,228,.15))}
-    .browser-download-note{margin-bottom:1em}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
-  .short-url{display:inline-block;padding:2px 12px;border-radius:10px;background:#ffffff1f;font-weight:800;letter-spacing:.3px}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VUE · الشاشة المكتملة لتلفزيونك</title>
+<meta name="description" content="VUE واجهة عربية للتلفزيون: مواقيت الصلاة، المباريات، عالم الأطفال، وشاشة توقف بالقرآن — لأجهزة Android TV وLG webOS.">
+<link rel="icon" href="assets/logo.png">
+<style>
+@font-face{font-family:T;src:url(assets/fonts/thmanyahsans-Regular.otf);font-weight:400}
+@font-face{font-family:T;src:url(assets/fonts/thmanyahsans-Medium.otf);font-weight:500}
+@font-face{font-family:T;src:url(assets/fonts/thmanyahsans-Bold.otf);font-weight:700}
+@font-face{font-family:T;src:url(assets/fonts/thmanyahsans-Black.otf);font-weight:900}
+:root{--bg:#070a1d;--card:#ffffff0d;--line:#ffffff1f;--text:#f4f6ff;--muted:#b9c0dd;--gold:#f3c447;--cyan:#31d7ff;--green:#22c55e}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:T,system-ui,sans-serif;line-height:1.7}
+a{color:inherit}
+.wrap{width:min(1160px,92vw);margin:0 auto}
+/* hero */
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
+.slides,.slides i{position:absolute;inset:0}
+.slides i{background-size:cover;background-position:center;opacity:0;transform:scale(1.06);transition:opacity 1.6s ease,transform 9s ease}
+.slides i.on{opacity:1;transform:scale(1)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#070a1d66,#070a1dcc 70%,var(--bg)),radial-gradient(ellipse at 80% 20%,#31d7ff22,transparent 55%)}
+.hero .wrap{position:relative;z-index:1;padding:90px 0 60px}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.brand img{width:64px;height:64px;border-radius:16px;box-shadow:0 10px 30px #0008}
+.brand b{font-size:30px;font-weight:900;letter-spacing:2px}
+h1{margin:0;font-size:clamp(40px,6.4vw,78px);line-height:1.12;font-weight:900}
+h1 span{background:linear-gradient(90deg,var(--gold),#ffe9a8,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:640px;margin:18px 0 30px;font-size:clamp(18px,2vw,22px);color:#dfe4ff}
+.cta{display:flex;flex-wrap:wrap;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 26px;border-radius:999px;font-weight:800;font-size:18px;text-decoration:none;border:1px solid var(--line);background:#ffffff14;backdrop-filter:blur(8px);transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px);background:#ffffff24}
+.btn.primary{background:linear-gradient(90deg,#22c55e,#16a34a);border:0;color:#fff;box-shadow:0 12px 30px #22c55e44}
+.btn.lg{background:linear-gradient(90deg,#c026d3,#7c3aed);border:0;color:#fff;box-shadow:0 12px 30px #7c3aed44}
+.btn small{font-weight:500;opacity:.85}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
+.chip{padding:7px 14px;border-radius:999px;background:#ffffff12;border:1px solid var(--line);font-size:15px;color:#e6e9ff}
+/* sections */
+section{padding:70px 0}
+.kicker{color:var(--cyan);font-weight:800;letter-spacing:.5px}
+h2{margin:6px 0 10px;font-size:clamp(28px,3.6vw,42px);font-weight:900;line-height:1.2}
+.sub{color:var(--muted);max-width:720px;margin:0 0 28px}
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.card{position:relative;padding:24px;border-radius:24px;background:var(--card);border:1px solid var(--line);overflow:hidden}
+.card h3{margin:0 0 6px;font-size:22px;font-weight:900}
+.card p{margin:0;color:var(--muted)}
+.ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:14px;font-size:24px;font-weight:900}
+/* platforms */
+.plat{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.pcard{padding:28px;border-radius:28px;border:1px solid var(--line);background:linear-gradient(160deg,#ffffff12,#ffffff05)}
+.pcard.android{box-shadow:inset 0 3px 0 #22c55e}
+.pcard.lg{box-shadow:inset 0 3px 0 #a855f7}
+.pcard.samsung{box-shadow:inset 0 3px 0 #3b82f6;opacity:.85}
+.pcard h3{margin:0;font-size:26px;font-weight:900}
+.ver{display:inline-block;margin:6px 0 14px;padding:3px 12px;border-radius:999px;background:#ffffff14;font-size:14px;color:#dfe4ff}
+.steps{counter-reset:s;list-style:none;margin:16px 0 0;padding:0}
+.steps li{counter-increment:s;position:relative;padding:0 46px 16px 0}
+.steps li:before{content:counter(s);position:absolute;right:0;top:2px;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#ffffff1a;font-weight:900}
+.android .steps li:before{background:#22c55e33;color:#86efac}
+.lg .steps li:before{background:#a855f733;color:#e9d5ff}
+.code{display:flex;align-items:center;gap:10px;margin:10px 0;padding:10px 12px 10px 10px;border-radius:14px;background:#020617;border:1px solid #ffffff22;direction:ltr}
+.code code{flex:1;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace;color:#e2e8f0;white-space:nowrap;overflow-x:auto}
+.copy{flex:none;padding:8px 14px;border:0;border-radius:10px;background:var(--cyan);color:#04121a;font:800 14px T,sans-serif;cursor:pointer}
+.copy.done{background:var(--green);color:#fff}
+.big-url{display:block;margin:8px 0;padding:14px 10px;border-radius:16px;background:#020617;border:1px dashed #22c55e88;text-align:center;font:900 clamp(15px,1.5vw,20px)/1.3 ui-monospace,Menlo,monospace;white-space:nowrap;direction:ltr;color:#bbf7d0}
+.note{margin-top:14px;padding:14px 16px;border-radius:16px;background:#f3c44714;border:1px solid #f3c44740;color:#ffeeb5;font-size:15px}
+.tabs{display:flex;gap:8px;margin:12px 0 4px}
+.tab{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--text);font:800 15px T,sans-serif;cursor:pointer}
+.tab.on{background:#a855f7;border-color:#a855f7}
+.pane{display:none}.pane.on{display:block}
+details{margin-top:12px;border:1px solid var(--line);border-radius:16px;background:#ffffff08}
+summary{cursor:pointer;padding:14px 16px;font-weight:800}
+details .body{padding:0 16px 16px;color:var(--muted)}
+.faq details{margin:10px 0}
+/* credits & footer */
+.credits{font-size:14px;color:var(--muted)}
+.credits li{margin:4px 0}
+footer{padding:36px 0 50px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media(max-width:640px){.hero{min-height:auto}.btn{width:100%;justify-content:center}}
 </style>
 </head>
 <body>
-  <header class="hero" id="top">
-    <nav class="nav wrap" aria-label="التنقل الرئيسي">
-      <a class="brand" href="#top"><img src="assets/logo.png" alt="شعار VUE"><span>رؤية | الشاشة المكتملة</span></a>
-      <div class="navlinks"><a href="#features">المزايا</a><a href="#platforms">التحميل</a><a href="#guide">طريقة الاستخدام</a><a class="nav-cta" href="#platforms">اختر جهازك <span aria-hidden="true">←</span></a></div>
-    </nav>
-    <div class="hero-content wrap">
-      <div class="eyebrow">VUE · واجهة تلفزيون عربية متكاملة</div>
-      <h1>كل ما تحب،<br><span>في شاشة واحدة.</span></h1>
-      <p>مواقيت الصلاة، آيات وأحاديث متجددة، مباريات فريقك ودورياتك، البث القرآني، وتطبيقاتك المفضلة — بتصميم عربي واضح ومريح للتلفزيون.</p>
-      <div class="hero-actions"><a class="button primary" href="#platforms">تنزيل حسب جهازك <span aria-hidden="true">↓</span></a><a class="button ghost" href="#features">اكتشف المزايا</a></div>
-      <div class="stats"><div><strong>واجهة عربية</strong>مصممة للشاشة الكبيرة</div><div><strong>Android / Google TV</strong>شاشة VUE عند بقاء التطبيق مفتوحًا</div><div><strong>LG webOS</strong>عام وSport داخل تطبيق VUE واحد</div></div>
+
+<header class="hero">
+  <div class="slides" id="slides"></div>
+  <div class="wrap">
+    <div class="brand"><img src="assets/logo.png" alt="VUE"><b>VUE</b></div>
+    <h1>الشاشة المكتملة<br><span>لتلفزيونك</span></h1>
+    <p class="lead">واجهة عربية واحدة تجمع مواقيت الصلاة والمباريات وأخبار الأندية وعالمًا آمنًا للأطفال، مع شاشة توقف بالقرآن الكريم. تتحدّث خلفياتها ومحتواها تلقائيًا.</p>
+    <div class="cta">
+      <a class="btn primary" href="#android">تنزيل لأندرويد TV <small data-ver="androidTv"></small></a>
+      <a class="btn lg" href="#lg">تثبيت على LG <small data-ver="lgWebOS"></small></a>
     </div>
-  </header>
+    <div class="chips"><span class="chip">🕌 مواقيت الصلاة</span><span class="chip">⚽ المباريات والأخبار</span><span class="chip">🧒 عالم الأطفال + قفل ولي الأمر</span><span class="chip">📖 شاشة توقف بالقرآن</span><span class="chip">🔄 تحديث تلقائي</span></div>
+  </div>
+</header>
 
-  <main>
-    <section class="section wrap" id="features">
-      <div class="section-head"><div><div class="kicker">مصممة لتكون واضحة من بعيد</div><h2>معلوماتك المهمة، بلا زحمة</h2><p>تجمع الشاشة العناصر التي تحتاجها يوميًا وتعرضها بتنسيق هادئ يناسب جهاز التحكم والشاشة الكبيرة.</p></div></div>
-      <div class="features">
-        <article class="feature"><div class="feature-icon" aria-hidden="true">◷</div><h3>مواقيت الصلاة</h3><p>عرض مواقيت الصلاة حسب موقع الجهاز، مع تمييز الصلاة القادمة.</p></article>
-        <article class="feature"><div class="feature-icon" aria-hidden="true">۞</div><h3>شاشة توقف VUE</h3><p>خلفيات المدن والساعة والآيات ومواقيت الصلاة، مع صوت قناة القرآن في Android TV وGoogle TV عند توفر الإنترنت.</p></article>
-        <article class="feature"><div class="feature-icon" aria-hidden="true">⚽</div><h3>المباريات والدوريات</h3><p>تبدأ الصفحة العامة بالطقس. بدّل إلى فريقك ومباراته القادمة، واحفظ العرض الذي تفضله حتى تغييره.</p></article>
-        <article class="feature"><div class="feature-icon" aria-hidden="true">◉</div><h3>البث القرآني</h3><p>يستخدم إصدار Android TV رابط بث قناة القرآن عبر الإنترنت في شاشة التوقف.</p></article>
-        <article class="feature"><div class="feature-icon" aria-hidden="true">↻</div><h3>تحديثات المحتوى عن بُعد</h3><p>في الإصدارات المتوافقة، تصل الخلفيات الجديدة من مصدر VUE المركزي تلقائيًا عند اتصال التلفزيون بالإنترنت. تحديث خصائص التطبيق نفسه يتطلب تثبيت إصدار جديد بموافقة المستخدم.</p></article>
-        <article class="feature"><div class="feature-icon" aria-hidden="true">✦</div><h3>وضع Kids للأطفال</h3><p>وضع Kids يضم لعبة مطابقة بسيطة تعمل بأزرار الريموت، ورابط YouTube لفتح ملف الأطفال. إعدادات الرقابة ورمز وليّ الأمر تبقى في YouTube.</p></article>
+<section>
+  <div class="wrap">
+    <div class="kicker">ماذا في VUE؟</div>
+    <h2>كل ما تحتاجه على شاشة واحدة</h2>
+    <p class="sub">ثلاثة أوضاع تختار بينها من زر «اختر مودك»: العام، Sport، وعالم الأطفال.</p>
+    <div class="grid g3">
+      <div class="card"><div class="ico" style="background:#f3c44726">🕌</div><h3>النظام العام</h3><p>الساعة والتاريخ الهجري، مواقيت الصلاة لمدينتك، الطقس، والمباراة القادمة لفريقك.</p></div>
+      <div class="card"><div class="ico" style="background:#22c55e26">⚽</div><h3>Sport</h3><p>جدول الدوريات وأخبارها أولًا بأول، مع خلفيات ملاعب حقيقية تتجدد تلقائيًا.</p></div>
+      <div class="card"><div class="ico" style="background:#31d7ff26">🧒</div><h3>عالم الأطفال</h3><p>قنوات أطفال مختارة تُحدَّث يوميًا وتعمل داخل التطبيق، ألعاب تعليمية بالريموت، وقفل ولي الأمر.</p></div>
+      <div class="card"><div class="ico" style="background:#a855f726">📖</div><h3>شاشة التوقف</h3><p>آية ودعاء ومواقيت الصلاة على خلفيات من مناطق المملكة، مع صوت قرآن هادئ.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="download">
+  <div class="wrap">
+    <div class="kicker">التثبيت</div>
+    <h2>اختر جهازك</h2>
+    <p class="sub">خطوات قصيرة ومرقّمة. تحتاجها مرة واحدة فقط، والتحديثات بعدها أسهل.</p>
+    <div class="plat">
+
+      <div class="pcard android" id="android">
+        <h3>Android TV · Google TV · Xiaomi</h3>
+        <span class="ver">آخر إصدار: <b data-ver="androidTv">…</b></span>
+        <ol class="steps">
+          <li>من متجر Google Play على التلفزيون ثبّت تطبيق <b>Downloader</b> (الأيقونة البرتقالية).</li>
+          <li>افتحه واكتب هذا الرابط في خانة الرابط ثم اضغط <b>Go</b>:<span class="big-url">vue-tv.github.io/vue.apk</span></li>
+          <li>بعد التنزيل اضغط <b>Install / تثبيت</b>، واسمح لـ Downloader بالتثبيت إذا طُلب (مرة واحدة).</li>
+          <li>افتح VUE — وأي تحديث جديد يظهر لك داخل التطبيق.</li>
+        </ol>
+        <div class="note"><b>رسالة «تطبيق ضار» أو «تم حظر التطبيق»؟</b> هذا تنبيه عام من Google لأي تطبيق من خارج المتجر. اضغط <b>مزيد من التفاصيل</b> ← <b>التثبيت على أي حال</b>.</div>
+        <p style="margin:14px 0 0"><a class="btn" href="vue.apk">⬇ تنزيل ملف APK مباشرة</a></p>
       </div>
-    </section>
 
-    <section class="section platform-section" id="platforms">
-      <div class="wrap">
-        <div class="section-head"><div><div class="kicker">ملفات التثبيت الحالية</div><h2>اختر نظام تلفزيونك</h2><p>كل منصة تحتاج ملفًا وطريقة تثبيت مختلفة. موقع VUE هو المصدر الرسمي للإصدارات، وتصل إليه الشاشات من أي شبكة عبر الإنترنت. تظهر الحزم الأحدث هنا عند نشرها. أنظمة التلفزيون لا تثبّت APK أو IPK بصمت؛ نزّل الإصدار الجديد وثبّته عند صدوره.</p></div></div>
-        <div class="note browser-download-note"><strong>Android TV / Google TV: افتح تطبيق <b>Downloader</b>، واكتب في خانة الرابط: <bdi dir="ltr" class="short-url">vue-tv.github.io/vue.apk</bdi> ثم Go — يبدأ التنزيل مباشرة ويظهر زر التثبيت.<br>LG webOS: متصفح تلفزيون LG لا يثبّت التطبيقات ويظهر «ملف غير مدعوم» — هذا قيد من LG وليس خطأ في الملف. نزّل حزمة LG على الكمبيوتر وثبّتها على التلفزيون بالطريقة السهلة في دليل LG أسفل الصفحة.</strong></div>
-        <div class="platforms">
-          <article class="platform">
-            <div class="platform-top"><div class="symbol" aria-hidden="true">A</div><span class="badge ready">متاح للتجربة</span></div>
-            <h3>Android TV / Google TV</h3><p class="lead">حزمة Android TV واحدة تجمع العام وSport وKids، بإصدار 1.60.37.</p>
-            <div class="file-list"><a class="file-link" href="vue.apk"><span>VUE · Android TV / Xiaomi / Google TV</span><small>APK · 1.60.37 · أحدث إصدار ↓</small></a></div><p class="note">وضع Kids يضم لعبة مطابقة بالريموت ورابط YouTube لملف الأطفال. إعدادات YouTube Kids ورمز وليّ الأمر تُدار من YouTube.</p>
-            <a class="button primary" href="#android-guide">طريقة التثبيت</a>
-          </article>
-          <article class="platform">
-            <div class="platform-top"><div class="symbol" aria-hidden="true">LG</div><span class="badge ready">متاح للتطوير</span></div>
-            <h3>LG webOS</h3><p class="lead">حزمة واحدة باسم VUE تجمع العام وSport وKids. يبدأ العام بالطقس؛ زر «اختر فريقك» يعرض المباراة، ويحفظ VUE اختيار الطقس أو المباراة بعد إغلاق التطبيق. أثناء شاشة التوقف يُضبط صوت القرآن على المستوى 10 ثم يعود لمستواه السابق.</p>
-            <div class="file-list"><a class="file-link" href="downloads/VUE-LG-webOS-latest.ipk" download><span>VUE · النظام العام وSport وKids</span><small>IPK · 1.58.16 · يُنزَّل على الكمبيوتر ↓</small></a><a class="file-link" href="downloads/VUE-app-sync-package.zip" download><span>مزامنة تطبيقات Home تلقائيًا (للماك)</span><small>ZIP · Mac ↻</small></a></div>
-            <p class="note">وضع Kids يعرض تطبيق YouTube Kids فقط. على التلفزيون، افتح ملف الطفل داخل تطبيق YouTube؛ يشرح دليل Google إعداد التجربة ورمز الوالدين: <a href="https://support.google.com/youtubekids/answer/9618031?hl=ar" target="_blank" rel="noreferrer">YouTube Kids على التلفزيون ↗</a></p>
-            <a class="button primary" href="#lg-guide">طريقة التثبيت</a>
-          </article>
-          <article class="platform">
-            <div class="platform-top"><div class="symbol" aria-hidden="true">S</div><span class="badge later">نسخة Tizen قيد التجهيز</span></div>
-            <h3>Samsung Smart TV</h3><p class="lead">لا توجد حاليًا حزمة Tizen. شاشة التوقف تحتاج تطبيق Samsung أصليًا منفصلًا؛ صفحة الويب لا تستطيع استبدال شاشة النظام.</p>
-            <div class="file-list"><div class="file-link"><span>نسخة Samsung قيد الإعداد</span><small>Tizen · لا يوجد تنزيل بعد</small></div></div>
-            <a class="button disabled" href="#samsung-guide" aria-label="تعرف على حالة نسخة Samsung">اعرف حالة النسخة</a>
-          </article>
+      <div class="pcard lg" id="lg">
+        <h3>LG webOS</h3>
+        <span class="ver">آخر إصدار: <b data-ver="lgWebOS">…</b></span>
+        <p style="margin:0;color:var(--muted)">متصفح تلفزيون LG لا يثبّت التطبيقات (يظهر «ملف غير مدعوم»)، لذلك التثبيت يتم من كمبيوتر على نفس الواي فاي — بأمر واحد.</p>
+        <ol class="steps">
+          <li>سجّل حساب مطوّر مجاني في <a href="https://webostv.developer.lge.com" target="_blank" rel="noopener">webostv.developer.lge.com</a>.</li>
+          <li>على التلفزيون: من متجر LG ثبّت تطبيق <b>Developer Mode</b>، سجّل الدخول، فعّل <b>Dev Mode Status</b> (يعيد تشغيل التلفزيون) ثم فعّل <b>Key Server</b>.</li>
+          <li>على الكمبيوتر الصق الأمر المناسب:</li>
+        </ol>
+        <div class="tabs"><button class="tab on" data-pane="mac">ماك</button><button class="tab" data-pane="win">ويندوز</button></div>
+        <div class="pane on" id="pane-mac">
+          <p style="margin:6px 0 0;color:var(--muted)">افتح تطبيق <b>Terminal</b> والصق:</p>
+          <div class="code"><code>bash &lt;(curl -fsSL https://vue-tv.github.io/install-lg-mac.sh)</code><button class="copy">نسخ</button></div>
         </div>
+        <div class="pane" id="pane-win">
+          <p style="margin:6px 0 0;color:var(--muted)">ثبّت <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js LTS</a> مرة واحدة، ثم افتح <b>PowerShell</b> والصق:</p>
+          <div class="code"><code>irm https://vue-tv.github.io/install-lg-windows.ps1 | iex</code><button class="copy">نسخ</button></div>
+        </div>
+        <ol class="steps" start="4" style="counter-reset:s 3">
+          <li>أول مرة فقط يطلب منك <b>IP Address</b> و<b>Passphrase</b> الظاهرين في تطبيق Developer Mode. وللتحديث لاحقًا: نفس الأمر.</li>
+        </ol>
+        <div class="note">وضع المطوّر في LG له مدة تظهر في التطبيق — اضغط <b>Extend Session Time</b> قبل انتهائها حتى يستمر VUE بالعمل.</div>
+        <details><summary>بديل بدون أوامر: برنامج webOS Dev Manager</summary><div class="body">ثبّت <a href="https://github.com/webosbrew/dev-manager-desktop/releases" target="_blank" rel="noopener">webOS Dev Manager</a> على الكمبيوتر، أضف التلفزيون بعنوان IP والـ Passphrase، ثم اسحب <a href="downloads/VUE-LG-webOS-latest.ipk">ملف VUE لـ LG</a> إلى قسم Apps.</div></details>
       </div>
-    </section>
 
-    <section class="section wrap" id="guide">
-      <div class="section-head"><div><div class="kicker">خطوات مبسطة</div><h2>طريقة التحميل والتشغيل</h2><p>اتبع الخطوات الخاصة بنظام تلفزيونك. قد تختلف أسماء القوائم قليلًا بحسب إصدار النظام.</p></div></div>
-      <div class="guide">
-        <details id="android-guide" open><summary>Android TV وGoogle TV · خطوات التثبيت</summary><div class="body"><h3>الطريقة الأسهل: تطبيق Downloader</h3><ol><li>من متجر Google Play على التلفزيون ثبّت تطبيق <b>Downloader</b> (الأيقونة البرتقالية).</li><li>افتحه، وفي خانة الرابط اكتب: <bdi dir="ltr" class="short-url">vue-tv.github.io/vue.apk</bdi> واضغط <b>Go</b>.</li><li>بعد اكتمال التنزيل اضغط <b>Install / تثبيت</b>. إذا طلب التلفزيون إذنًا، اسمح لتطبيق Downloader بتثبيت التطبيقات (مرة واحدة فقط).</li><li>افتح VUE. بعد دقيقتين من عدم استخدام الريموت تظهر شاشة التوقف، وأي زر يعيدك للواجهة.</li></ol><div class="note"><b>إذا ظهرت رسالة «تم حظر التطبيق» أو «تطبيق ضار» من Google Play Protect:</b> هذا تنبيه عام يظهر لكل تطبيق يُثبَّت من خارج متجر Google Play، وليس لأن في VUE مشكلة. اضغط <b>مزيد من التفاصيل</b> ثم <b>التثبيت على أي حال</b>.</div><h3>طريقة بديلة: ذاكرة USB</h3><ol><li>نزّل <a href="vue.apk">ملف VUE لأندرويد</a> على الكمبيوتر أو الجوال.</li><li>انسخه إلى ذاكرة USB، ثم صِلها بالتلفزيون وافتحها بمدير الملفات واضغط على الملف ثم تثبيت.</li></ol><div class="note">إذا كان عندك VUE قديم ورفض التحديث برسالة «التطبيق غير مثبت»، احذف VUE القديم أولًا ثم ثبّت الجديد. التحديثات القادمة تركب فوق بعض بدون حذف.</div></div></details>
-        <details id="lg-guide"><summary>تلفزيونات LG بنظام webOS · خطوات التثبيت</summary><div class="body"><h3>الأسرع: من الماك بأمر واحد</h3><ol><li>على التلفزيون: افتح تطبيق <b>Developer Mode</b> وتأكد أن <b>Dev Mode Status</b> و<b>Key Server</b> مفعّلان.</li><li>على الماك (نفس شبكة الواي فاي): افتح تطبيق <b>Terminal</b> والصق هذا الأمر ثم Enter:</li></ol><pre class="terminal" dir="ltr"><code>bash &lt;(curl -fsSL https://vue-tv.github.io/install-lg-mac.sh)</code></pre><p>أول مرة فقط يطلب منك IP Address والـ Passphrase الظاهرين في تطبيق Developer Mode. بعدها أي تحديث جديد بنفس الأمر.</p><h3>طريقة بديلة (برنامج بدون أوامر)</h3><ol><li>سجّل حساب مطوّر مجاني في <a href="https://webostv.developer.lge.com" target="_blank" rel="noopener" dir="ltr">webostv.developer.lge.com</a>.</li><li>على التلفزيون: من متجر LG ثبّت تطبيق <b>Developer Mode</b>، سجّل الدخول بنفس الحساب، فعّل <b>Dev Mode Status</b> وأعد تشغيل التلفزيون، ثم فعّل <b>Key Server</b>.</li><li>على الكمبيوتر (ويندوز أو ماك): ثبّت برنامج <b>webOS Dev Manager</b> المجاني من <a href="https://github.com/webosbrew/dev-manager-desktop/releases" target="_blank" rel="noopener" dir="ltr">صفحة الإصدارات</a>.</li><li>في البرنامج أضف التلفزيون بعنوان IP والرمز (Passphrase) الظاهرين في تطبيق Developer Mode.</li><li>نزّل <a href="downloads/VUE-LG-webOS-latest.ipk" download>حزمة VUE لـ LG</a> واسحبها إلى قسم Apps في البرنامج، ثم شغّل VUE من التلفزيون.</li></ol><p>ملاحظة: وضع المطوّر في LG له مدة صلاحية تظهر داخل تطبيق Developer Mode ويجب تمديدها قبل انتهائها، وإلا يتوقف التطبيق المثبّت. التثبيت بدون كمبيوتر يكون فقط بعد نشر VUE في متجر LG الرسمي.</p><h3>الطريقة المتقدمة (سطر الأوامر)</h3><p>نسخة LG حزمة واحدة فقط: يفتح VUE الصفحة العامة، ثم ينتقل إلى Sport من الزر داخل التطبيق. لا تثبّت تطبيقًا ثانيًا لـSport. شاشة التوقف تظهر داخل تطبيق VUE. عند الانتقال إلى Home يحتفظ التطبيق بإطار شاشة التوقف حتى يغادر العرض، ويوقف فيديو الخلفية وصوتها.</p><ol><li>من متجر LG ثبّت <b>Developer Mode</b> وسجّل الدخول بحساب مطوّر LG. فعّل Developer Mode وKey Server، واتركهما يعملان أثناء التثبيت. إذا ظهر طلب سماح على التلفزيون اختر «نعم».</li><li>على الماك أو الكمبيوتر ثبّت Node.js LTS وأدوات webOS CLI:</li></ol><pre class="terminal" dir="ltr"><code>npm install --global --prefix "$HOME/.webos-cli" @webos-tools/cli
-export PATH="$HOME/.webos-cli/bin:$PATH"</code></pre><ol start="3"><li>عرّف التلفزيون باستخدام عنوان IP الظاهر في إعدادات الشبكة:</li></ol><pre class="terminal" dir="ltr"><code>ares-setup-device --add vue-tv -i username=prisoner -i host=TV_IP -i port=9922
-ares-novacom --device vue-tv --getkey</code></pre><ol start="4"><li>ثبّت الحزمة الوحيدة وشغّل VUE:</li></ol><pre class="terminal" dir="ltr"><code>ares-install --device vue-tv ~/Downloads/VUE-LG-webOS-1.58.16.ipk
-ares-launch --device vue-tv sa.tlfzyonk.general</code></pre><p>لمن سبق وثبّت VUE Sport كتطبيق منفصل، اترك VUE الجديد مفتوحًا ثم أزل المعرّف القديم مرة واحدة:</p><pre class="terminal" dir="ltr"><code>ares-install --device vue-tv --remove sa.tlfzyonk.home</code></pre><div class="note">إذا عرض متصفح التلفزيون «الملف غير مدعوم»، فهذا متوقع: IPK لا يُثبّت من المتصفح. نزّله إلى كمبيوتر ثم ثبّته بأوامر ares-install الموضحة. تحتاج الطريقة إلى Developer Mode. تطبيق webOS لا يستطيع قراءة قائمة Home أو ترتيبها من داخل الصفحة. لمزامنة التطبيقات المثبتة وأيقوناتها استخدم ZIP المرفق على ماك متصل بالتلفزيون عبر SSAP. ترتيب التطبيقات داخل VUE مشترك بين العام وSport، لكنه لا يعيد ترتيب صف Home الأصلي.</div><p><a href="https://webostv.developer.lge.com/develop/getting-started/developer-mode-app" target="_blank" rel="noreferrer">دليل LG الرسمي لوضع المطور ↗</a> · <a href="https://webostv.developer.lge.com/develop/tools/cli-installation" target="_blank" rel="noreferrer">تثبيت webOS CLI ↗</a></p></div></details>
-        <details id="samsung-guide"><summary>تلفزيونات Samsung بنظام Tizen</summary><div class="body"><p>ملفات Android APK وLG IPK لا تعمل على Samsung. يلزم تجهيز إصدار Tizen منفصل وتوقيعه واختباره على تلفزيون Samsung قبل إتاحة التنزيل. لذلك لا يوجد حاليًا ملف تثبيت لهذا النظام.</p><ol><li>بعد تجهيز نسخة Tizen، يلزم تفعيل Developer Mode على التلفزيون وربطه بالكمبيوتر عبر Tizen Studio.</li><li>يُثبّت الإصدار للاختبار على التلفزيون من بيئة التطوير. التوزيع العام يكون بعد تجهيز الحزمة واعتماد طريقة النشر المناسبة.</li></ol><div class="note">لن يظهر زر تنزيل Samsung حتى تصبح حزمة Tizen جاهزة ومجرّبة؛ لا تستخدم ملفات Android أو webOS على تلفزيون Samsung.</div><p><a href="https://developer.samsung.com/smarttv/develop/getting-started/using-sdk/tv-device.html" target="_blank" rel="noreferrer">دليل Samsung الرسمي لتوصيل التلفزيون بوضع المطور ↗</a></p></div></details>
-        <details><summary>ما الذي أحتاجه بعد التثبيت؟</summary><div class="body"><ul><li>اتصال بالإنترنت لمزامنة المواقيت ومواعيد المباريات والبث.</li><li>اسمح للموقع باستخدام الموقع إذا رغبت بحساب مواقيت الصلاة للمدينة الحالية.</li><li>في VUE على LG وAndroid TV، اترك التطبيق مفتوحًا قرابة دقيقتين لتظهر شاشة التوقف.</li><li>على Samsung، يلزم إصدار Tizen مستقل قبل تشغيل شاشة VUE كتطبيق على التلفزيون.</li></ul></div></details>
+      <div class="pcard samsung" id="samsung">
+        <h3>Samsung (Tizen)</h3>
+        <span class="ver">قريبًا</span>
+        <p style="margin:0;color:var(--muted)">نسخة سامسونج تحتاج تطويرًا وتوقيعًا خاصًا بنظام Tizen، وهي ضمن الخطة القادمة. ملفات Android وLG لا تعمل على سامسونج.</p>
       </div>
-    </section>
 
-    <section class="section wrap">
-      <div class="steps"><article class="step-card"><div class="step-no">01 — نزّل</div><h3>اختر ملف جهازك</h3><p>APK لأجهزة Android TV وGoogle TV، وIPK لتلفزيون LG webOS. لا توجد حزمة Tizen حتى الآن.</p></article><article class="step-card"><div class="step-no">02 — ثبّت</div><h3>اتبع دليل المنصة</h3><p>استخدم خطوات التثبيت المناسبة للنظام الظاهر على تلفزيونك.</p></article><article class="step-card"><div class="step-no">03 — استمتع</div><h3>خصّص واجهتك</h3><p>اختر فريقك ودورياتك، وتابع المواقيت والآيات من الشاشة الرئيسية.</p></article></div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section class="section wrap"><div class="contact"><div><h2>نسخة Samsung تهمك؟</h2><p>نجهز إصدار Tizen مستقلًا بعد بناء الحزمة واختبارها على تلفزيون Samsung.</p></div><a class="button ghost" href="#samsung-guide">تفاصيل التوافق</a></div></section>
-  </main>
-  <footer class="footer"><div class="footer-inner wrap"><span>برمجة وتطوير: أحمد بن سعيد · iaoili@</span><span class="footer-social" aria-label="منصات التواصل"><a href="https://www.snapchat.com/@iaoili?invite_id=_OdNfFx0&amp;share_id=y_LXRQf4SiSiy5iSJ5XZxw&amp;sid=db13eb39eebf4350a45012a2ee97a3e4" target="_blank" rel="noopener noreferrer">Snapchat · @iaoili</a><a href="https://www.instagram.com/iaoili/" target="_blank" rel="noopener noreferrer">Instagram · @iaoili</a><span>WhatsApp · @iaoili</span></span><span>الإصدارات المتاحة: Android TV 1.60.37 · LG webOS VUE 1.58.16</span></div></footer>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script>
-    document.querySelectorAll('a[href="#lg-guide"]').forEach(function(link){link.addEventListener('click',function(){document.getElementById('lg-guide').open=true})});
-    if(location.hash==='#lg-guide')document.getElementById('lg-guide').open=true;
-    document.querySelectorAll('.guide details').forEach(function(item){item.addEventListener('toggle',function(){if(!item.open)return;document.querySelectorAll('.guide details[open]').forEach(function(other){if(other!==item)other.open=false})})});
-    document.querySelectorAll('a[download]').forEach(function(link){link.addEventListener('click',function(){var t=document.getElementById('toast');t.textContent='بدأ تنزيل الملف';t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2200)})});
-  </script>
+<section class="faq">
+  <div class="wrap">
+    <div class="kicker">أسئلة شائعة</div>
+    <h2>مساعدة سريعة</h2>
+    <details><summary>Downloader يقول «بدأ التنزيل» ولا يحدث شيء</summary><div class="body">اكتب الرابط المختصر <b dir="ltr">vue-tv.github.io/vue.apk</b> مباشرة في خانة الرابط داخل Downloader بدل فتح الصفحة.</div></details>
+    <details><summary>التحديث رفض التثبيت برسالة «التطبيق غير مثبت»</summary><div class="body">احذف VUE القديم من التلفزيون مرة واحدة ثم ثبّت الجديد. التحديثات بعدها تُثبَّت فوق بعضها.</div></details>
+    <details><summary>هل يتحدّث المحتوى تلقائيًا؟</summary><div class="body">نعم: فيديوهات الأطفال يوميًا، والخلفيات كل خمسة أيام، بدون إعادة تثبيت. ميزات التطبيق الجديدة تأتي كتحديث يظهر داخل VUE.</div></details>
+    <details><summary>قفل ولي الأمر</summary><div class="body">من صفحة الأطفال اضغط «تفعيل قفل ولي الأمر» واختر رمزًا من ٤ أرقام، وصوّر رمز الاستعادة الذي يظهر مرة واحدة. على أندرويد يمنع القفل الخروج حتى بزر الهوم (اختر VUE عندما يسأل التلفزيون عن تطبيق الهوم).</div></details>
+  </div>
+</section>
+
+<section>
+  <div class="wrap credits">
+    <div class="kicker">حقوق الصور</div>
+    <p>بعض خلفيات VUE صور برخص مفتوحة (Creative Commons) مع قصّها وتعتيم منتصفها:</p>
+    <ul id="credits"></ul>
+  </div>
+</section>
+
+<footer><div class="wrap"><span>برمجة وتطوير: أحمد بن سعيد · iaoili@</span><span>VUE © 2026</span></div></footer>
+
+<script>
+(function () {
+  var slides = ["riyadh-kingdom-centre.jpg", "alula-elephant-rock.jpg", "saudi-riyadh-skyline.jpg", "jeddah-albalad.jpg", "stadium-king-fahd-gulf-cup.jpg", "abha-asir.jpg"];
+  var box = document.getElementById("slides"), els = [];
+  slides.forEach(function (s, i) { var e = document.createElement("i"); e.style.backgroundImage = "url(assets/content/backgrounds/" + s + ")"; if (!i) e.className = "on"; box.appendChild(e); els.push(e); });
+  var k = 0; setInterval(function () { els[k].className = ""; k = (k + 1) % els.length; els[k].className = "on"; }, 6000);
+  fetch("updates.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (u) {
+    document.querySelectorAll("[data-ver]").forEach(function (el) { var p = u.platforms[el.getAttribute("data-ver")]; if (p && p.version) el.textContent = (el.tagName === "SMALL" ? "· " : "") + p.version; });
+  }).catch(function () {});
+  fetch("assets/content/credits.json").then(function (r) { return r.json(); }).then(function (list) {
+    var ul = document.getElementById("credits");
+    list.forEach(function (c) { var li = document.createElement("li"); li.innerHTML = "«" + c.title + "» — " + (c.artist || "") + " — " + c.license + (c.source ? ' — <a href="' + c.source + '" target="_blank" rel="noopener">المصدر</a>' : ""); ul.appendChild(li); });
+  }).catch(function () {});
+  document.querySelectorAll(".tab").forEach(function (t) { t.onclick = function () { document.querySelectorAll(".tab").forEach(function (x) { x.classList.toggle("on", x === t); }); document.querySelectorAll(".pane").forEach(function (p) { p.classList.toggle("on", p.id === "pane-" + t.getAttribute("data-pane")); }); }; });
+  if (/Windows/i.test(navigator.userAgent)) { var w = document.querySelector('.tab[data-pane="win"]'); if (w) w.click(); }
+  document.querySelectorAll(".copy").forEach(function (b) { b.onclick = function () { var txt = b.previousElementSibling.textContent; (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { b.textContent = "تم النسخ ✓"; b.classList.add("done"); setTimeout(function () { b.textContent = "نسخ"; b.classList.remove("done"); }, 2000); }).catch(function () { var r = document.createRange(); r.selectNodeContents(b.previousElementSibling); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }); }; });
+})();
+</script>
 </body>
 </html>

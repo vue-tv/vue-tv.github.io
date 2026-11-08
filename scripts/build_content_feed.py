@@ -4,11 +4,11 @@
 Every 5 days a different set is chosen automatically from the pools below, so
 the TVs get fresh backgrounds without any app update. Add an image by dropping a
 JPG into assets/content/backgrounds/ and listing it in a pool."""
-import datetime, json, os, random
+import datetime, hashlib, json, os, random
 
-GENERAL = ["riyadh-kingdom-centre.jpg", "jeddah-albalad.jpg", "alula-elephant-rock.jpg", "abha-asir.jpg",
-           "diriyah-turaif.jpg", "9hWJs7iblh8.jpg", "LAj90eAXOZA.jpg", "XDtzu1D2P8c.jpg", "f5ZB0LHwi0s.jpg", "t3dlLOhdEzs.jpg"]
-SPORT = ["sport-night-stadium.jpg", "sport-goal-net.jpg", "sport-ball-spotlight.jpg", "sport-tactics-board.jpg", "sport-golden-cup.jpg"]
+GENERAL = ["riyadh-kingdom-centre.jpg", "jeddah-albalad.jpg", "alula-elephant-rock.jpg", "abha-asir.jpg", "diriyah-turaif.jpg",
+           "saudi-riyadh-skyline.jpg", "saudi-riyadh-kafd.jpg", "saudi-jeddah-corniche-2.jpg"]
+SPORT = ["stadium-king-fahd-gulf-cup.jpg", "stadium-king-fahd.jpg", "stadium-night-match.jpg"]
 PERIOD_DAYS, PICK = 5, 6
 BASE = "/assets/content/backgrounds/"
 
@@ -20,9 +20,11 @@ def pick(pool, period, salt):
 def main():
     today = datetime.date.today()
     period = today.toordinal() // PERIOD_DAYS
-    feed = {"product": "VUE", "schemaVersion": 1, "revision": f"p{period}",
+    gen, sport = pick(GENERAL, period, "general"), pick(SPORT, period, "sport")
+    tag = hashlib.sha1(json.dumps([gen, sport]).encode()).hexdigest()[:8]  # new revision whenever the images change
+    feed = {"product": "VUE", "schemaVersion": 1, "revision": f"p{period}-{tag}",
             "updatedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),
-            "backgrounds": pick(GENERAL, period, "general"), "sportBackgrounds": pick(SPORT, period, "sport")}
+            "backgrounds": gen, "sportBackgrounds": sport}
     with open("content-feed.json", "w", encoding="utf-8") as f:
         json.dump(feed, f, ensure_ascii=False, indent=2); f.write("\n")
     body = json.dumps(feed, ensure_ascii=False, separators=(",", ":"))
