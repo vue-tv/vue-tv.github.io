@@ -1,4 +1,4 @@
-name: Refresh VUE Kids videos
+name: Refresh VUE content (kids videos + backgrounds)
 on:
   schedule:
     - cron: "17 0 * * *"   # daily, 03:17 Riyadh time
@@ -13,11 +13,12 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: python3 scripts/build_kids_videos.py kids/videos.json
+      - run: python3 scripts/build_content_feed.py
       - name: Commit if changed
         run: |
-          if git diff --quiet -- kids/videos.json; then echo "no change"; exit 0; fi
+          if git diff --quiet -- kids/videos.json content.js content-feed.json; then echo "no change"; exit 0; fi
           git config user.name "vue-kids-bot"
           git config user.email "vue-kids-bot@users.noreply.github.com"
-          git add kids/videos.json
-          git commit -m "Daily kids videos $(date -u +%F)"
+          git add kids/videos.json content.js content-feed.json
+          git commit -m "Daily VUE content $(date -u +%F)"
           git push

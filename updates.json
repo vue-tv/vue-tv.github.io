@@ -6,16 +6,16 @@
   "installRequiresUserConfirmation": true,
   "platforms": {
     "androidTv": {
-      "version": "1.60.36",
+      "version": "1.60.37",
       "package": "APK",
       "download": "downloads/VUE-Android-TV-latest.apk",
-      "sha256": "87cc7cf713345ae9825b983b6253ff854afa1e60e9fb9ae64beaee1fd446cd74"
+      "sha256": "d212dbac68a5c31247a92aeed5fa637e0016ca002a3ac61fb362b65bd37cca0f"
     },
     "lgWebOS": {
-      "version": "1.58.15",
+      "version": "1.58.16",
       "package": "IPK",
       "download": "downloads/VUE-LG-webOS-latest.ipk",
-      "sha256": "b938e65741dc08e78239fca6efbea8b046529c07606193e8b8e9aa15c2d8b765"
+      "sha256": "3ae491335cba4b08cc2da4f95edd4cb7dd57930b0e0d4df35f4720b7150d70bd"
     },
     "samsungTizen": {
       "available": false,
