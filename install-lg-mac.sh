@@ -43,6 +43,12 @@ if ! ares-install --device "$DEVICE" "$WORK/VUE.ipk"; then
   ares-novacom --device "$DEVICE" --getkey </dev/tty || fail "تعذر جلب المفتاح. تأكد أن Key Server مفعّل وأن التلفزيون على نفس الشبكة."
   ares-install --device "$DEVICE" "$WORK/VUE.ipk" || fail "تعذر التثبيت. تأكد أن Dev Mode Status مفعّل وأن مدة الجلسة لم تنتهِ."
 fi
+# 5) remove old VUE apps from the first versions (they also show as "VUE" on the TV)
+for OLD in sa.tlfzyonk.home sa.tlfzyonk.sport com.tlfzyonk.vue; do
+  if ares-install --device "$DEVICE" --list 2>/dev/null | grep -q "^$OLD"; then
+    say "حذف نسخة VUE القديمة ($OLD)…"; ares-install --device "$DEVICE" --remove "$OLD" >/dev/null 2>&1 || true
+  fi
+done
 ares-launch --device "$DEVICE" "$APP_ID" >/dev/null 2>&1 || true
 
 say "تم ✓  VUE مثبت ويعمل على التلفزيون."

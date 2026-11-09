@@ -50,6 +50,11 @@ if ($LASTEXITCODE -ne 0) {
   & ares-install --device $Device $ipk
   if ($LASTEXITCODE -ne 0) { Fail "Install failed. Make sure Dev Mode Status is ON and the session has not expired." }
 }
+# 5) remove old VUE apps from the first versions (they also show as "VUE" on the TV)
+$installed = (& ares-install --device $Device --list 2>$null) -join "`n"
+foreach ($old in @("sa.tlfzyonk.home", "sa.tlfzyonk.sport", "com.tlfzyonk.vue")) {
+  if ($installed -match "(?m)^$([regex]::Escape($old))") { Say "Removing old VUE app ($old)..."; & ares-install --device $Device --remove $old 2>$null | Out-Null }
+}
 & ares-launch --device $Device $AppId 2>$null | Out-Null
 Remove-Item $ipk -ErrorAction SilentlyContinue
 
