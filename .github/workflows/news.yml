@@ -1,4 +1,4 @@
-name: Refresh VUE news ticker
+name: Refresh VUE news (general + leagues)
 on:
   schedule:
     - cron: "8,38 * * * *"   # every 30 minutes (fresh breaking news)
@@ -13,6 +13,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: python3 scripts/build_news.py
+      - run: python3 scripts/build_league_news.py
       - name: Commit if changed
         run: |
           if git diff --quiet -- news; then echo "no change"; exit 0; fi
