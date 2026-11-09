@@ -1,7 +1,7 @@
 name: Refresh VUE news ticker
 on:
   schedule:
-    - cron: "23 */2 * * *"   # every 2 hours
+    - cron: "8,38 * * * *"   # every 30 minutes (fresh breaking news)
   workflow_dispatch: {}
 permissions:
   contents: write
