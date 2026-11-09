@@ -40,7 +40,7 @@ OTHER = {"rus.1": "الدوري الروسي", "ned.1": "الدوري الهول
          "mex.1": "الدوري المكسيكي", "jpn.1": "الدوري الياباني", "kor.1": "الدوري الكوري", "fifa.world": "كأس العالم", "fifa.worldq": "تصفيات كأس العالم"}
 SPORT = re.compile(r"مباراة|لاعب|مدرب|دوري|هدف|أهداف|فوز|يفوز|خسارة|يخسر|تعادل|صفقة|انتقال|التعاقد|تعاقد|عقد|ملعب|كأس|المنتخب|نادي|النادي|جماهير|جمهور|ركلة|إصابة|مصاب|تشكيلة|الجولة|موسم|بطولة|روشن|كرة|الهداف|حارس|مهاجم|مدافع|ديربي|كلاسيكو|تدريبات|معسكر|الإعارة|الميركاتو|يونايتد|سيتي")
 STARS = re.compile(r"رونالدو|كريستيانو|ميسي|بنزيما|نيمار|مبابي")   # a star may not fill the list either
-OTHER_SPORTS = re.compile(r"كرة اليد|كرة السلة|سلة |السلة|الطائرة|كرة الطاولة|النسائية|للسيدات|السيدات|أولمبياد|ألعاب القوى|المطرقة|السباحة|التنس|الملاكمة|فورمولا|الجولف|الشطرنج|الرياضات الإلكترونية|الهوكي|الكاراتيه|الجودو|التايكوندو|الفروسية|البادل|الدراجات")
+OTHER_SPORTS = re.compile(r"سيدات|كرة اليد|كرة السلة|سلة |السلة|الطائرة|كرة الطاولة|النسائية|للسيدات|السيدات|أولمبياد|ألعاب القوى|المطرقة|السباحة|التنس|الملاكمة|فورمولا|الجولف|الشطرنج|الرياضات الإلكترونية|الهوكي|الكاراتيه|الجودو|التايكوندو|الفروسية|البادل|الدراجات")
 FOREIGN_AR = re.compile(r"المصري|المصرية|مصر|اللبناني|لبنان|الأردني|الأردن|التونسي|المغربي|الجزائري|الليبي|العراقي|السوداني|السوري|اليمني|البنك الأهلي|الزمالك|بيراميدز|الإسماعيلي|المقاولون|الوداد|الرجاء|الترجي|طرابلس|بنغازي|القاهرة|الدوري الممتاز المصري|الوحدات|الرمثا|الحسين إربد|الجزيرة الأردني")
 SAUDI_SITES = "site:arriyadiyah.com OR site:okaz.com.sa OR site:alriyadh.com OR site:sabq.org OR site:aawsat.com OR site:alyaum.com OR site:al-jazirah.com OR site:almadina.com OR site:alwatan.com.sa OR site:spl.com.sa OR site:alarabiya.net OR site:spa.gov.sa"
 BLOCKED_SOURCES = re.compile(r"^(صحيفة\s+)?عاجل$|ajel", re.I)
@@ -59,6 +59,7 @@ def fetch(query):
         if BLOCKED_SOURCES.search(source) or BLOCKED_SOURCES.search((src_el.get("url") if src_el is not None else "") or ""): continue
         if source and title.endswith(" - " + source): title = title[: -len(source) - 3]
         title = re.sub(r"^\s*[\(\[«]?\s*عاجل\s*[\)\]»]?\s*[:|\-–—.،/]*\s*", "", re.sub(r"\s+", " ", title)).strip(" |-–—:")
+        title = re.sub(r"^(?:أخبار [^|]{2,30} اليوم\s*\|\s*|بالفيديو\s*\.{2,}\s*|بالصور\s*\.{2,}\s*|خاص\s*\|\s*|رسميًا?\s*[:|]\s*)", "", title).strip()
         if len(title) < 15 or SKIP.search(title): continue
         src = re.split(r"\s+[:|\-–—]\s+", source)[0]
         src = re.sub(r"^https?://(www\.)?|/+$", "", src)
