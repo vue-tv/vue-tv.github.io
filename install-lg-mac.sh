@@ -38,6 +38,8 @@ curl -fsSL "$IPK_URL" -o "$WORK/VUE.ipk" || fail "تعذر تنزيل الحزم
 
 # 4) install + launch (retry once with a fresh key)
 say "تثبيت VUE على التلفزيون…"
+# close any running VUE first, so the TV never keeps showing the previous version
+for RUN in "$APP_ID" sa.tlfzyonk.home sa.tlfzyonk.sport com.tlfzyonk.vue; do ares-launch --device "$DEVICE" --close "$RUN" >/dev/null 2>&1 || true; done
 if ! ares-install --device "$DEVICE" "$WORK/VUE.ipk"; then
   say "يبدو أن مفتاح التلفزيون تغيّر. اكتب Passphrase الظاهرة في Developer Mode:"
   ares-novacom --device "$DEVICE" --getkey </dev/tty || fail "تعذر جلب المفتاح. تأكد أن Key Server مفعّل وأن التلفزيون على نفس الشبكة."

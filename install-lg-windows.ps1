@@ -43,6 +43,8 @@ Invoke-WebRequest -UseBasicParsing -Uri $IpkUrl -OutFile $ipk
 
 # 4) install + launch (retry once with a fresh key)
 Say "Installing VUE on the TV..."
+# close any running VUE first, so the TV never keeps showing the previous version
+foreach ($run in @($AppId, "sa.tlfzyonk.home", "sa.tlfzyonk.sport", "com.tlfzyonk.vue")) { & ares-launch --device $Device --close $run 2>$null | Out-Null }
 & ares-install --device $Device $ipk
 if ($LASTEXITCODE -ne 0) {
   Say "The TV key changed. Type the Passphrase shown in Developer Mode:"
