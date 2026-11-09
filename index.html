@@ -192,7 +192,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 
 <script>
 (function () {
-  var slides = ["riyadh-kingdom-centre.jpg", "alula-elephant-rock.jpg", "saudi-riyadh-skyline.jpg", "jeddah-albalad.jpg", "stadium-king-fahd-gulf-cup.jpg", "abha-asir.jpg"];
+  var slides = ["riyadh-kingdom-centre.jpg", "alula-elephant-rock.jpg", "saudi-riyadh-skyline.jpg", "jeddah-albalad.jpg", "stadium-night-match.jpg", "abha-asir.jpg"];
   var box = document.getElementById("slides"), els = [];
   slides.forEach(function (s, i) { var e = document.createElement("i"); e.style.backgroundImage = "url(assets/content/backgrounds/" + s + ")"; if (!i) e.className = "on"; box.appendChild(e); els.push(e); });
   var k = 0; setInterval(function () { els[k].className = ""; k = (k + 1) % els.length; els[k].className = "on"; }, 6000);

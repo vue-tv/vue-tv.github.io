@@ -8,7 +8,7 @@ import datetime, hashlib, json, os, random
 
 GENERAL = ["riyadh-kingdom-centre.jpg", "jeddah-albalad.jpg", "alula-elephant-rock.jpg", "abha-asir.jpg", "diriyah-turaif.jpg",
            "saudi-riyadh-skyline.jpg", "saudi-riyadh-kafd.jpg", "saudi-jeddah-corniche-2.jpg"]
-SPORT = ["stadium-king-fahd-gulf-cup.jpg", "stadium-king-fahd.jpg", "stadium-night-match.jpg"]
+SPORT = ["sport-calm-pitch.jpg", "stadium-night-match.jpg", "stadium-king-fahd.jpg"]
 PERIOD_DAYS, PICK = 5, 6
 BASE = "/assets/content/backgrounds/"
 
@@ -21,6 +21,8 @@ def main():
     today = datetime.date.today()
     period = today.toordinal() // PERIOD_DAYS
     gen, sport = pick(GENERAL, period, "general"), pick(SPORT, period, "sport")
+    first = BASE + SPORT[0]  # Sport always opens on the calm background
+    sport = [first] + [x for x in sport if x != first]
     tag = hashlib.sha1(json.dumps([gen, sport]).encode()).hexdigest()[:8]  # new revision whenever the images change
     feed = {"product": "VUE", "schemaVersion": 1, "revision": f"p{period}-{tag}",
             "updatedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds"),

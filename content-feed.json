@@ -1,8 +1,8 @@
 {
   "product": "VUE",
   "schemaVersion": 1,
-  "revision": "p147985-4351a99d",
-  "updatedAt": "2026-11-08T16:01:24+00:00",
+  "revision": "p147985-7565a073",
+  "updatedAt": "2026-11-09T03:05:22+00:00",
   "backgrounds": [
     "/assets/content/backgrounds/jeddah-albalad.jpg",
     "/assets/content/backgrounds/saudi-jeddah-corniche-2.jpg",
@@ -12,8 +12,8 @@
     "/assets/content/backgrounds/riyadh-kingdom-centre.jpg"
   ],
   "sportBackgrounds": [
-    "/assets/content/backgrounds/stadium-king-fahd-gulf-cup.jpg",
-    "/assets/content/backgrounds/stadium-king-fahd.jpg",
-    "/assets/content/backgrounds/stadium-night-match.jpg"
+    "/assets/content/backgrounds/sport-calm-pitch.jpg",
+    "/assets/content/backgrounds/stadium-night-match.jpg",
+    "/assets/content/backgrounds/stadium-king-fahd.jpg"
   ]
 }
