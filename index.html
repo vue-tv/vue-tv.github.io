@@ -76,6 +76,12 @@ details{margin-top:12px;border:1px solid var(--line);border-radius:16px;backgrou
 summary{cursor:pointer;padding:14px 16px;font-weight:800}
 details .body{padding:0 16px 16px;color:var(--muted)}
 .faq details{margin:10px 0}
+/* visits & downloads */
+.stats{padding:26px 0 8px}
+.stats-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.stat{min-width:220px;padding:18px 26px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);text-align:center}
+.stat b{display:block;font-size:40px;font-weight:900;line-height:1.1;background:linear-gradient(90deg,#31d7ff,#a76bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{display:block;margin-top:4px;color:var(--muted);font-size:16px}
 /* credits & footer */
 .credits{font-size:14px;color:var(--muted)}
 .credits li{margin:4px 0}
@@ -132,6 +138,18 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
         </ol>
         <div class="note"><b>رسالة «تطبيق ضار» أو «تم حظر التطبيق»؟</b> هذا تنبيه عام من Google لأي تطبيق من خارج المتجر. اضغط <b>مزيد من التفاصيل</b> ← <b>التثبيت على أي حال</b>.</div>
         <p style="margin:14px 0 0"><a class="btn" href="vue.apk">⬇ تنزيل ملف APK مباشرة</a></p>
+        <details id="home-lock"><summary>قفل زر الهوم في عالم الأطفال (اختياري)</summary><div class="body">
+          <p style="margin:0 0 8px">يخلي VUE «تطبيق الهوم» في الجهاز: داخل عالم الأطفال والقفل مفعّل، زر الهوم يطلب الرمز السري. وبرا عالم الأطفال يشتغل زر الهوم عادي. أجهزة Google TV لا تعرض خيار تطبيق الهوم، فيتم بأمر واحد من الكمبيوتر (أداة Android الرسمية adb):</p>
+          <ol class="steps">
+            <li>على الجهاز: الإعدادات ← النظام ← حول ← اضغط <b>Android TV OS build</b> سبع مرات لتفعيل خيارات المطوّر.</li>
+            <li>الإعدادات ← النظام ← خيارات المطوّر ← فعّل <b>تصحيح الأخطاء اللاسلكي</b> (أو <b>تصحيح الأخطاء عبر الشبكة</b>).</li>
+            <li>على الكمبيوتر (نفس الواي فاي) الصق الأمر المناسب، ويطلب منك IP الجهاز ورمز الإقران أول مرة:</li>
+          </ol>
+          <div class="tabs"><button class="tab on" data-pane="amac">ماك</button><button class="tab" data-pane="awin">ويندوز</button></div>
+          <div class="pane on" id="pane-amac"><div class="code"><code>bash &lt;(curl -fsSL https://vue-tv.github.io/install-android-mac.sh)</code><button class="copy">نسخ</button></div></div>
+          <div class="pane" id="pane-awin"><div class="code"><code>irm https://vue-tv.github.io/install-android-windows.ps1 | iex</code><button class="copy">نسخ</button></div></div>
+          <p style="margin:8px 0 0;color:var(--muted)">الأمر يثبّت آخر نسخة من VUE ويجعله تطبيق الهوم. لإلغاء ذلك احذف VUE من الجهاز.</p>
+        </div></details>
       </div>
 
       <div class="pcard lg" id="lg">
@@ -188,6 +206,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   </div>
 </section>
 
+<section class="stats" aria-label="إحصائيات VUE"><div class="wrap stats-row">
+  <div class="stat"><b id="stat-visits">…</b><span>زيارة للموقع</span></div>
+  <div class="stat"><b id="stat-downloads">…</b><span>تحميل للتطبيق</span></div>
+</div></section>
 <footer><div class="wrap"><span>برمجة وتطوير: أحمد بن سعيد · iaoili@</span><span>VUE © 2026</span></div></footer>
 
 <script>
@@ -203,9 +225,32 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
     var ul = document.getElementById("credits");
     list.forEach(function (c) { var li = document.createElement("li"); li.innerHTML = "«" + c.title + "» — " + (c.artist || "") + " — " + c.license + (c.source ? ' — <a href="' + c.source + '" target="_blank" rel="noopener">المصدر</a>' : ""); ul.appendChild(li); });
   }).catch(function () {});
-  document.querySelectorAll(".tab").forEach(function (t) { t.onclick = function () { document.querySelectorAll(".tab").forEach(function (x) { x.classList.toggle("on", x === t); }); document.querySelectorAll(".pane").forEach(function (p) { p.classList.toggle("on", p.id === "pane-" + t.getAttribute("data-pane")); }); }; });
+  document.querySelectorAll(".tab").forEach(function (t) { t.onclick = function () { var box = t.closest(".pcard") || document; box.querySelectorAll(".tab").forEach(function (x) { x.classList.toggle("on", x === t); }); box.querySelectorAll(".pane").forEach(function (p) { p.classList.toggle("on", p.id === "pane-" + t.getAttribute("data-pane")); }); }; });
   if (/Windows/i.test(navigator.userAgent)) { var w = document.querySelector('.tab[data-pane="win"]'); if (w) w.click(); }
   document.querySelectorAll(".copy").forEach(function (b) { b.onclick = function () { var txt = b.previousElementSibling.textContent; (navigator.clipboard ? navigator.clipboard.writeText(txt) : Promise.reject()).then(function () { b.textContent = "تم النسخ ✓"; b.classList.add("done"); setTimeout(function () { b.textContent = "نسخ"; b.classList.remove("done"); }, 2000); }).catch(function () { var r = document.createRange(); r.selectNodeContents(b.previousElementSibling); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }); }; });
+})();
+</script>
+<script>
+/* Visits and downloads, counted by the free Abacus counter (abacus.jasoncameron.dev).
+   A visit counts once per browser session; a download counts when the APK is downloaded
+   or an install command is copied (once per session). */
+(function () {
+  var API = "https://abacus.jasoncameron.dev/", NS = "vue-tv-github-io";
+  function ar(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
+  function show(id, v) { var el = document.getElementById(id); if (el && typeof v === "number") el.textContent = ar(v.toLocaleString("en-US")); }
+  function call(kind, key, id) {
+    return fetch(API + kind + "/" + NS + "/" + key, { cache: "no-store" }).then(function (r) { return r.json(); })
+      .then(function (j) { show(id, j && j.value); }).catch(function () {});
+  }
+  function once(flag) { try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, "1"); } catch (e) {} return true; }
+  call(once("vue-visit") ? "hit" : "get", "visits", "stat-visits");
+  call("get", "downloads", "stat-downloads");
+  function countDownload() { if (once("vue-download")) call("hit", "downloads", "stat-downloads"); }
+  document.addEventListener("click", function (e) {
+    var t = e.target.closest ? e.target.closest("a,button") : null; if (!t) return;
+    var href = t.getAttribute("href") || "";
+    if (/\.(apk|ipk)(\?|$)/i.test(href) || (t.classList.contains("copy") && t.closest("#download"))) countDownload();
+  }, true);
 })();
 </script>
 </body>
