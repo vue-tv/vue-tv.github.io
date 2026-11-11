@@ -232,24 +232,29 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </script>
 <script>
 /* Visits and downloads, counted by the free Abacus counter (abacus.jasoncameron.dev).
-   A visit counts once per browser session; a download counts when the APK is downloaded
-   or an install command is copied (once per session). */
+   A visit counts once per browser session; a download counts when the APK is downloaded or an
+   install command is copied (once per session). The service sometimes answers with an error, so
+   every call is retried; the page always shows the larger of the live value and the snapshot
+   saved on this site every 30 minutes (stats.json, never blocked). */
 (function () {
-  var API = "https://abacus.jasoncameron.dev/", NS = "vue-tv-github-io";
+  var API = "https://abacus.jasoncameron.dev/", NS = "vue-tv-github-io", best = { visits: 0, downloads: 0 };
   function ar(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
-  function show(id, v) { var el = document.getElementById(id); if (el && typeof v === "number") el.textContent = ar(v.toLocaleString("en-US")); }
-  function call(kind, key, id) {
-    return fetch(API + kind + "/" + NS + "/" + key, { cache: "no-store" }).then(function (r) { return r.json(); })
-      .then(function (j) { show(id, j && j.value); }).catch(function () {});
+  function show(key, v) {
+    if (typeof v !== "number" || v < best[key]) return; best[key] = v;
+    var el = document.getElementById("stat-" + key); if (el) el.textContent = ar(v.toLocaleString("en-US"));
+  }
+  function call(kind, key, tries) {
+    fetch(API + kind + "/" + NS + "/" + key, { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (j) { show(key, j && j.value); })
+      .catch(function () { if (tries > 1) setTimeout(function () { call(kind, key, tries - 1); }, tries === 3 ? 1500 : 4000); });
   }
   function once(flag) { try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, "1"); } catch (e) {} return true; }
-  // 1) numbers from our own site first (never blocked), 2) live values from the counter service.
   fetch("stats.json?t=" + Math.floor(Date.now() / 300000), { cache: "no-store" }).then(function (r) { return r.json(); })
-    .then(function (j) { var a = document.getElementById("stat-visits"), b = document.getElementById("stat-downloads");
-      if (a && a.textContent === "…") show("stat-visits", j.visits); if (b && b.textContent === "…") show("stat-downloads", j.downloads); }).catch(function () {});
-  call(once("vue-visit") ? "hit" : "get", "visits", "stat-visits");
-  call("get", "downloads", "stat-downloads");
-  function countDownload() { if (once("vue-download")) call("hit", "downloads", "stat-downloads"); }
+    .then(function (j) { show("visits", j.visits); show("downloads", j.downloads); }).catch(function () {});
+  call(once("vue-visit") ? "hit" : "get", "visits", 3);
+  call("get", "downloads", 3);
+  function countDownload() { if (once("vue-download")) call("hit", "downloads", 3); }
   document.addEventListener("click", function (e) {
     var t = e.target.closest ? e.target.closest("a,button") : null; if (!t) return;
     var href = t.getAttribute("href") || "";
