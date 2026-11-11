@@ -14,12 +14,17 @@ jobs:
         with: { python-version: "3.12" }
       - run: python3 scripts/build_news.py
       - run: python3 scripts/build_league_news.py
+      - name: Visits / downloads snapshot (same-origin, so the counter shows even where the counter service is blocked)
+        run: |
+          v=$(curl -fsS -m 20 https://abacus.jasoncameron.dev/get/vue-tv-github-io/visits | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" || echo "")
+          d=$(curl -fsS -m 20 https://abacus.jasoncameron.dev/get/vue-tv-github-io/downloads | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" || echo "")
+          if [ -n "$v" ] && [ -n "$d" ]; then printf '{"visits":%s,"downloads":%s}\n' "$v" "$d" > stats.json; fi
       - name: Commit if changed
         run: |
-          if git diff --quiet -- news; then echo "no change"; exit 0; fi
+          if git diff --quiet -- news stats.json; then echo "no change"; exit 0; fi
           git config user.name "vue-news-bot"
           git config user.email "vue-news-bot@users.noreply.github.com"
-          git add news
+          git add news stats.json
           git commit -m "News $(date -u +%FT%H:%M)"
           git pull --rebase -q origin main || true
           git push

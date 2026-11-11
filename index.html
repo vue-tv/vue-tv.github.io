@@ -243,6 +243,10 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       .then(function (j) { show(id, j && j.value); }).catch(function () {});
   }
   function once(flag) { try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, "1"); } catch (e) {} return true; }
+  // 1) numbers from our own site first (never blocked), 2) live values from the counter service.
+  fetch("stats.json?t=" + Math.floor(Date.now() / 300000), { cache: "no-store" }).then(function (r) { return r.json(); })
+    .then(function (j) { var a = document.getElementById("stat-visits"), b = document.getElementById("stat-downloads");
+      if (a && a.textContent === "…") show("stat-visits", j.visits); if (b && b.textContent === "…") show("stat-downloads", j.downloads); }).catch(function () {});
   call(once("vue-visit") ? "hit" : "get", "visits", "stat-visits");
   call("get", "downloads", "stat-downloads");
   function countDownload() { if (once("vue-download")) call("hit", "downloads", "stat-downloads"); }
