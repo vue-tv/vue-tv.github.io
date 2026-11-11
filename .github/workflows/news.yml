@@ -16,8 +16,8 @@ jobs:
       - run: python3 scripts/build_league_news.py
       - name: Visits / downloads snapshot (same-origin, so the counter shows even where the counter service is blocked)
         run: |
-          get() { for i in 1 2 3 4 5; do r=$(curl -fsS -m 20 "https://abacus.jasoncameron.dev/get/vue-tv-github-io/$1" 2>/dev/null | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" 2>/dev/null) && [ -n "$r" ] && { echo "$r"; return; }; sleep 6; done; }
-          v=$(get visits); d=$(get downloads)
+          get() { for i in 1 2 3 4 5; do r=$(curl -fsS -m 20 "https://countapi.mileshilliard.com/api/v1/get/$1" 2>/dev/null | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" 2>/dev/null) && [ -n "$r" ] && { echo "$r"; return; }; sleep 6; done; }
+          v=$(get vue-tv-sa-site-visits); d=$(get vue-tv-sa-app-downloads)
           if [ -n "$v" ] && [ -n "$d" ]; then printf '{"visits":%s,"downloads":%s}\n' "$v" "$d" > stats.json; fi
       - name: Commit if changed
         run: |

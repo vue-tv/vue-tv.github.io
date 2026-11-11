@@ -231,13 +231,13 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 })();
 </script>
 <script>
-/* Visits and downloads, counted by the free Abacus counter (abacus.jasoncameron.dev).
+/* Visits and downloads, counted by the free CountAPI service (countapi.mileshilliard.com).
    A visit counts once per browser session; a download counts when the APK is downloaded or an
    install command is copied (once per session). The service sometimes answers with an error, so
    every call is retried; the page always shows the larger of the live value and the snapshot
    saved on this site every 30 minutes (stats.json, never blocked). */
 (function () {
-  var API = "https://abacus.jasoncameron.dev/", NS = "vue-tv-github-io", best = { visits: 0, downloads: 0 };
+  var API = "https://countapi.mileshilliard.com/api/v1/", KEYS = { visits: "vue-tv-sa-site-visits", downloads: "vue-tv-sa-app-downloads" }, best = { visits: 0, downloads: 0 };
   function ar(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
   function show(key, v) {
     if (typeof v !== "number" || v < best[key]) return; best[key] = v;
@@ -245,7 +245,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   }
   function call(kind, key, tries) {
     // keepalive: the (slow) counter request still completes if the visitor leaves the page
-    fetch(API + kind + "/" + NS + "/" + key, { cache: "no-store", keepalive: kind === "hit" })
+    fetch(API + kind + "/" + KEYS[key], { cache: "no-store", keepalive: kind === "hit" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (j) { show(key, j && j.value); })
       .catch(function () { if (tries > 1) setTimeout(function () { call(kind, key, tries - 1); }, tries === 3 ? 1500 : 4000); });
