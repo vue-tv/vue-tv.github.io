@@ -18,7 +18,8 @@ jobs:
         run: |
           get() { for i in 1 2 3 4 5; do r=$(curl -fsS -m 20 "https://countapi.mileshilliard.com/api/v1/get/$1" 2>/dev/null | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" 2>/dev/null) && [ -n "$r" ] && { echo "$r"; return; }; sleep 6; done; }
           v=$(get vue-tv-sa-site-visits); d=$(get vue-tv-sa-app-downloads)
-          if [ -n "$v" ] && [ -n "$d" ]; then printf '{"visits":%s,"downloads":%s}\n' "$v" "$d" > stats.json; fi
+          day=$(TZ=Asia/Riyadh date +%Y%m%d); a=$(curl -fsS -m 20 "https://countapi.mileshilliard.com/api/v1/get/vue-tv-sa-active-$day" 2>/dev/null | python3 -c "import json,sys;print(json.load(sys.stdin)['value'])" 2>/dev/null || echo 0)
+          if [ -n "$v" ] && [ -n "$d" ]; then printf '{"visits":%s,"downloads":%s,"active":%s,"day":"%s"}\n' "$v" "$d" "${a:-0}" "$day" > stats.json; fi
       - name: Commit if changed
         run: |
           if git diff --quiet -- news stats.json; then echo "no change"; exit 0; fi

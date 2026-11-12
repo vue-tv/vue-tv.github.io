@@ -79,7 +79,7 @@ details .body{padding:0 16px 16px;color:var(--muted)}
 /* visits & downloads */
 .stats{padding:26px 0 8px}
 .stats-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
-.stat{min-width:220px;padding:18px 26px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);text-align:center}
+.stat{min-width:200px;padding:18px 26px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.04);text-align:center}
 .stat b{display:block;font-size:40px;font-weight:900;line-height:1.1;background:linear-gradient(90deg,#31d7ff,#a76bff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .stat span{display:block;margin-top:4px;color:var(--muted);font-size:16px}
 /* credits & footer */
@@ -207,8 +207,9 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 </section>
 
 <section class="stats" aria-label="إحصائيات VUE"><div class="wrap stats-row">
-  <div class="stat"><b id="stat-visits">…</b><span>زيارة للموقع</span></div>
-  <div class="stat"><b id="stat-downloads">…</b><span>تحميل للتطبيق</span></div>
+  <div class="stat"><b id="stat-visits">…</b><span>مشاهدة للموقع</span></div>
+  <div class="stat"><b id="stat-downloads">…</b><span>مرة تحميل وتحديث</span></div>
+  <div class="stat"><b id="stat-active">…</b><span>جهاز استخدم VUE اليوم</span></div>
 </div></section>
 <footer><div class="wrap"><span>برمجة وتطوير: أحمد بن سعيد · iaoili@</span><span>VUE © 2026</span></div></footer>
 
@@ -231,35 +232,38 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 })();
 </script>
 <script>
-/* Visits and downloads, counted by the free CountAPI service (countapi.mileshilliard.com).
-   A visit counts once per browser session; a download counts when the APK is downloaded or an
-   install command is copied (once per session). The service sometimes answers with an error, so
-   every call is retried; the page always shows the larger of the live value and the snapshot
-   saved on this site every 30 minutes (stats.json, never blocked). */
+/* Website counters on CountAPI (countapi.mileshilliard.com):
+   - page views: every time this page is opened;
+   - downloads & updates: counted by the apps once per installed version (plus direct APK
+     downloads / copied install commands here);
+   - devices active today: each TV that opens VUE, once per day (Saudi time).
+   A snapshot saved on this site every 30 minutes (stats.json) is shown when the service is
+   unreachable; the page always shows the larger value. */
 (function () {
-  var API = "https://countapi.mileshilliard.com/api/v1/", KEYS = { visits: "vue-tv-sa-site-visits", downloads: "vue-tv-sa-app-downloads" }, best = { visits: 0, downloads: 0 };
+  var API = "https://countapi.mileshilliard.com/api/v1/";
+  function day() { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10).replace(/-/g, ""); }
+  var KEYS = { visits: "vue-tv-sa-site-visits", downloads: "vue-tv-sa-app-downloads", active: "vue-tv-sa-active-" + day() };
+  var best = { visits: -1, downloads: -1, active: -1 };
   function ar(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
   function show(key, v) {
     if (typeof v !== "number" || v < best[key]) return; best[key] = v;
     var el = document.getElementById("stat-" + key); if (el) el.textContent = ar(v.toLocaleString("en-US"));
   }
   function call(kind, key, tries) {
-    // keepalive: the (slow) counter request still completes if the visitor leaves the page
     fetch(API + kind + "/" + KEYS[key], { cache: "no-store", keepalive: kind === "hit" })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (r) { if (r.status === 404 && kind === "get") return { value: 0 }; if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (j) { show(key, j && j.value); })
       .catch(function () { if (tries > 1) setTimeout(function () { call(kind, key, tries - 1); }, tries === 3 ? 1500 : 4000); });
   }
-  function once(flag) { try { if (sessionStorage.getItem(flag)) return false; sessionStorage.setItem(flag, "1"); } catch (e) {} return true; }
   fetch("stats.json?t=" + Math.floor(Date.now() / 300000), { cache: "no-store" }).then(function (r) { return r.json(); })
-    .then(function (j) { show("visits", j.visits); show("downloads", j.downloads); }).catch(function () {});
-  call(once("vue-visit") ? "hit" : "get", "visits", 3);
+    .then(function (j) { show("visits", j.visits); show("downloads", j.downloads); if (j.day === day()) show("active", j.active); }).catch(function () {});
+  call("hit", "visits", 3);
   call("get", "downloads", 3);
-  function countDownload() { if (once("vue-download")) call("hit", "downloads", 3); }
+  call("get", "active", 3);
   document.addEventListener("click", function (e) {
     var t = e.target.closest ? e.target.closest("a,button") : null; if (!t) return;
     var href = t.getAttribute("href") || "";
-    if (/\.(apk|ipk)(\?|$)/i.test(href) || (t.classList.contains("copy") && t.closest("#download"))) countDownload();
+    if (/\.(apk|ipk)(\?|$)/i.test(href) || (t.classList.contains("copy") && t.closest("#download"))) call("hit", "downloads", 3);
   }, true);
 })();
 </script>
