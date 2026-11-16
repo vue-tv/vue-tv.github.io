@@ -57,7 +57,16 @@ $installed = (& ares-install --device $Device --list 2>$null) -join "`n"
 foreach ($old in @("sa.tlfzyonk.home", "sa.tlfzyonk.sport", "com.tlfzyonk.vue")) {
   if ($installed -match "(?m)^$([regex]::Escape($old))") { Say "Removing old VUE app ($old)..."; & ares-install --device $Device --remove $old 2>$null | Out-Null }
 }
-& ares-launch --device $Device $AppId 2>$null | Out-Null
+# 6) keep Developer Mode alive: when it expires (about 50 h) the TV removes VUE. VUE extends it
+#    by itself once it has the session token, so hand the token over at launch.
+$token = ((& ares-novacom --device $Device --run "cat /var/luna/preferences/devmode_enabled" 2>$null) -join "").Trim()
+if ($token) {
+  try { Invoke-WebRequest -UseBasicParsing -TimeoutSec 20 -Uri "https://developer.lge.com/secure/ResetDevModeSession.dev?sessionToken=$token" | Out-Null } catch { }
+  & ares-launch --device $Device $AppId -p "vueDevToken=$token" 2>$null | Out-Null
+  Say "Developer Mode extended. VUE will now extend it automatically every day."
+} else {
+  & ares-launch --device $Device $AppId 2>$null | Out-Null
+}
 Remove-Item $ipk -ErrorAction SilentlyContinue
 
 Say "Done - VUE is installed and running on the TV."

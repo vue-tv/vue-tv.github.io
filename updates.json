@@ -1,7 +1,7 @@
 {
   "product": "VUE",
   "releaseChannel": "stable",
-  "updated": "2026-11-12",
+  "updated": "2026-11-16",
   "source": "/",
   "installRequiresUserConfirmation": true,
   "platforms": {
@@ -12,10 +12,10 @@
       "sha256": "43124d1f8433144c41057922f83b5ad9366a410692d13f4f4d528c93d7e7f5fa"
     },
     "lgWebOS": {
-      "version": "1.58.53",
+      "version": "1.58.54",
       "package": "IPK",
       "download": "downloads/VUE-LG-webOS-latest.ipk",
-      "sha256": "c3e7a76396554c44494cc41da07186d6a255278899cf7f19771f32ea0e211474"
+      "sha256": "35937065d6115a98d0a7dda6c533510a1ec0f28bfdfc1c3d0d6466c22da87736"
     },
     "samsungTizen": {
       "available": false,

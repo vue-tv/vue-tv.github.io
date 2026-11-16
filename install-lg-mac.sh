@@ -51,7 +51,16 @@ for OLD in sa.tlfzyonk.home sa.tlfzyonk.sport com.tlfzyonk.vue; do
     say "حذف نسخة VUE القديمة ($OLD)…"; ares-install --device "$DEVICE" --remove "$OLD" >/dev/null 2>&1 || true
   fi
 done
-ares-launch --device "$DEVICE" "$APP_ID" >/dev/null 2>&1 || true
+# 6) keep Developer Mode alive: when it expires (about 50 h) the TV removes VUE. VUE extends it
+#    by itself once it has the session token, so hand the token over at launch.
+TOKEN="$(ares-novacom --device "$DEVICE" --run "cat /var/luna/preferences/devmode_enabled" 2>/dev/null | tr -d '\r\n ')"
+if [ -n "$TOKEN" ]; then
+  curl -fsS -m 20 "https://developer.lge.com/secure/ResetDevModeSession.dev?sessionToken=$TOKEN" >/dev/null 2>&1 || true
+  ares-launch --device "$DEVICE" "$APP_ID" -p "vueDevToken=$TOKEN" >/dev/null 2>&1 || ares-launch --device "$DEVICE" "$APP_ID" >/dev/null 2>&1 || true
+  say "تم تمديد وضع المطوّر، وVUE سيمدده تلقائيًا كل يوم."
+else
+  ares-launch --device "$DEVICE" "$APP_ID" >/dev/null 2>&1 || true
+fi
 
 say "تم ✓  VUE مثبت ويعمل على التلفزيون."
-echo "تذكير: مدة وضع المطوّر تظهر في تطبيق Developer Mode — اضغط Extend Session Time قبل انتهائها."
+echo "ملاحظة: VUE يمدد وضع المطوّر تلقائيًا ما دام التلفزيون يُشغَّل كل يومين على الأقل."
