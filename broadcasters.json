@@ -1,10 +1,32 @@
 {
-  "_note": "VUE Sport: the official broadcaster shown on the back of each fixture card, per league (Saudi Arabia / MENA). Edit freely; the TVs read this file once a day.",
-  "ksa.1": { "name": "ثمانية", "brand": "thmanyah" },
-  "esp.1": { "name": "beIN SPORTS", "brand": "bein" },
-  "eng.1": { "name": "beIN SPORTS", "brand": "bein" },
-  "ita.1": { "name": "beIN SPORTS", "brand": "bein" },
-  "fra.1": { "name": "beIN SPORTS", "brand": "bein" },
-  "uefa.champions": { "name": "beIN SPORTS", "brand": "bein" },
-  "fifa.world": { "name": "beIN SPORTS", "brand": "bein" }
+  "_note": "VUE Sport: the official broadcaster on the back of each fixture card, per league (Saudi Arabia / MENA). brand: bein | thmanyah | other. Optional \"ch\" = default channel shown next to the logo (1, 2, 3, MAX...). Per match: add to _matches {\"league\":\"ksa.1\",\"home\":\"Al Hilal\",\"away\":\"Al Nassr\",\"ch\":\"2\"} (English or Arabic team names). The TVs read this file once a day.",
+  "ksa.1": {
+    "name": "ثمانية",
+    "brand": "thmanyah"
+  },
+  "esp.1": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "eng.1": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "ita.1": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "fra.1": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "uefa.champions": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "fifa.world": {
+    "name": "beIN SPORTS",
+    "brand": "bein"
+  },
+  "_matches": []
 }
