@@ -1,0 +1,19 @@
+{
+  "_note": "VUE social queue: one item is published every 2 days (Riyadh evening). posted=true once live.",
+  "items": [
+    {"id":"reel-teaser","type":"reel","media":"https://vue-tv.github.io/social/reel-youth-teaser.mp4","cover":"https://vue-tv.github.io/social/reel-youth-teaser-cover.jpg","posted":false,
+     "caption":"تحديث جديد جاي لـ VUE 🔥\nمود «استراحة الشباب» على تلفزيونك: بلوت بأصوات سعودية، برّا السالفة، سُلّم التحدي، ومين فينا… ٨ ألعاب للجلسة وكلها بالريموت 🎮\n\nقريباً… وتحديثاتنا مستمرة 💙\nالتطبيق مجاني لتلفزيونات LG و Android TV\n🔗 vue-tv.github.io\n\n#VUE #استراحة_الشباب #بلوت #برا_السالفة #السعودية #تلفزيون_ذكي #LG #AndroidTV"},
+    {"id":"p2","type":"image","media":"https://vue-tv.github.io/social/p2.jpg","posted":false,
+     "caption":"٨ ألعاب لجلسة الشباب 🎴\nبلوت، برّا السالفة، سُلّم التحدي، حزّر اللاعب، تحدي المعلومات، صح ولا خطأ، مين فينا، وتحدي الدقيقة.\nكلها على التلفزيون وبالريموت… ومنشن خويك اللي يقطع دايم 😂\n\n🔗 vue-tv.github.io\n#VUE #استراحة_الشباب #بلوت #جلسات #السعودية #LG #AndroidTV"},
+    {"id":"p3","type":"image","media":"https://vue-tv.github.io/social/p3.jpg","posted":false,
+     "caption":"قطعت؟ صادوك! 😅\nبلوت VUE بأصوات سعودية: «يالله إلعب»، «تحكم بلد»، «أوف! قاطع؟»، «سجّل سجّل عليه!»… وخويك يقول «فِدا فِدا ياخّوي» 💙\nصن، حكم، أشكل، مشاريع، وعداد للي يتأخر.\n\n🔗 vue-tv.github.io\n#بلوت #VUE #استراحة_الشباب #السعودية #جلسة_بلوت"},
+    {"id":"p1","type":"image","media":"https://vue-tv.github.io/social/p1.jpg","posted":false,
+     "caption":"شاشة تلفزيونك بشكل جديد 📺\nVUE يعطيك شاشة رئيسية مرتبة: الساعة والتاريخ الهجري، مواقيت الصلاة، الطقس، آية اليوم، الأخبار، وتطبيقاتك كلها في مكان واحد.\nمجاني لتلفزيونات LG و Android TV.\n\n🔗 vue-tv.github.io\n#VUE #تلفزيون_ذكي #LG #AndroidTV #السعودية #تطبيقات"},
+    {"id":"p4","type":"image","media":"https://vue-tv.github.io/social/p4.jpg","posted":false,
+     "caption":"مود Sport ⚽\nمباراة فريقك الجاية مع العد التنازلي، مواعيد الدوري والقنوات الناقلة، وأخبار الأندية أول بأول… كلها على شاشتك.\nروشن، الإنجليزي، الإسباني، أبطال أوروبا وأكثر.\n\n🔗 vue-tv.github.io\n#VUE #دوري_روشن #الهلال #النصر #الاتحاد #الأهلي #كورة #السعودية"},
+    {"id":"p5","type":"image","media":"https://vue-tv.github.io/social/p5.jpg","posted":false,
+     "caption":"بدل الشاشة السوداء… 🤍\nشاشة توقف VUE: آية، ودعاء، ومواقيت الصلاة مع الصلاة القادمة، وخلفيات من السعودية، والقرآن الكريم بصوت هادي.\n\n🔗 vue-tv.github.io\n#VUE #القرآن_الكريم #مواقيت_الصلاة #تلفزيون_ذكي #السعودية"},
+    {"id":"p6","type":"image","media":"https://vue-tv.github.io/social/p6.jpg","posted":false,
+     "caption":"عالم الأطفال 🧸\nقنوات وألعاب تعليمية مرتبة للأطفال، بقفل ورمز سري للوالدين عشان ما يطلعون منه بدون إذن.\nكل شي بالريموت وبواجهة تناسب الصغار.\n\n🔗 vue-tv.github.io\n#VUE #أطفال #ألعاب_تعليمية #تلفزيون_ذكي #السعودية"}
+  ]
+}
