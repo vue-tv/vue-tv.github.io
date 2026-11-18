@@ -1,21 +1,21 @@
 {
   "product": "VUE",
   "releaseChannel": "stable",
-  "updated": "2026-11-17",
+  "updated": "2026-11-18",
   "source": "/",
   "installRequiresUserConfirmation": true,
   "platforms": {
     "androidTv": {
-      "version": "1.60.79",
+      "version": "1.60.80",
       "package": "APK",
       "download": "downloads/VUE-Android-TV-latest.apk",
-      "sha256": "4e8b1cc23eef44adc075cae77b9b4f4a59a89d7ecf567a7ee8f8885f5766c1e3"
+      "sha256": "581c28c9ec7dac04cbf2940038ae67833add51abe01a5a035cfb526b981d6e27"
     },
     "androidCar": {
-      "version": "1.60.79",
+      "version": "1.60.80",
       "package": "APK",
       "download": "downloads/VUE-Android-Car-latest.apk",
-      "sha256": "f95922248eb3efbf223b221412f6b4b912029912c464db6b4e9d8ff49b0c86d1"
+      "sha256": "bb10e3e2cb990b20d7bb4a4929e0ecdb047d849259bb3526b392723ed4ed001a"
     },
     "lgWebOS": {
       "version": "1.58.86",
