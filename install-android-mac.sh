@@ -68,6 +68,22 @@ adb shell cmd package set-home-activity "$HOME_ACT" >/dev/null 2>&1
 NOW="$(adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME 2>/dev/null | tail -1 | tr -d '\r')"
 adb shell monkey -p "$PKG" -c android.intent.category.LEANBACK_LAUNCHER 1 >/dev/null 2>&1 || true
 
+# Xiaomi PatchWall keeps the Home button for itself: offer to switch it off (reversible)
+if [[ "$NOW" != "$PKG/"* ]]; then
+  PW="$(adb shell pm list packages 2>/dev/null | tr -d '\r' | sed 's/^package://' | grep -iE 'mitv.*(home|launcher)|patchwall' || true)"
+  if [[ -n "$PW" ]]; then
+    say "جهازك Xiaomi وفيه واجهة PatchWall، وهي تمسك زر الهوم لنفسها."
+    echo "أقدر أوقف PatchWall (بدون حذف) عشان يصير VUE الواجهة الرئيسية. تقدر ترجعها بأي وقت."
+    read -r -p "توقف PatchWall الحين؟ اكتب y للموافقة: " OK </dev/tty
+    if [[ "$OK" == "y" || "$OK" == "Y" ]]; then
+      for P in $PW; do adb shell pm disable-user --user 0 "$P" >/dev/null 2>&1 && echo "  أوقفت: $P"; done
+      adb shell cmd package set-home-activity "$HOME_ACT" >/dev/null 2>&1
+      NOW="$(adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME 2>/dev/null | tail -1 | tr -d '\r')"
+      echo "لترجيع PatchWall لاحقاً:"; for P in $PW; do echo "  adb shell pm enable $P"; done
+    fi
+  fi
+fi
+
 if [[ "$NOW" == "$PKG/"* ]]; then
   say "تم ✓  VUE مثبت وهو تطبيق الهوم."
   echo "داخل عالم الأطفال والقفل مفعّل: زر الهوم يطلب الرمز السري. وبرا عالم الأطفال: زر الهوم يوديك للشاشة الرئيسية كالعادة."

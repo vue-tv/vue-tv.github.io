@@ -71,6 +71,21 @@ Say "Making VUE the Home app..."
 $now = ((& $Adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME) | Select-Object -Last 1).Trim()
 & $Adb shell monkey -p $Pkg -c android.intent.category.LEANBACK_LAUNCHER 1 | Out-Null
 
+# Xiaomi PatchWall keeps the Home button for itself: offer to switch it off (reversible)
+if ($now -notlike "$Pkg/*") {
+  $pw = (& $Adb shell pm list packages) | ForEach-Object { ($_ -replace '^package:','').Trim() } | Where-Object { $_ -match 'mitv.*(home|launcher)|patchwall' }
+  if ($pw) {
+    Say "This is a Xiaomi TV with PatchWall, which keeps the Home button for itself."
+    $ok = Read-Host "Switch PatchWall off (not deleted, can be restored) so VUE becomes the Home app? Type y"
+    if ($ok -eq "y") {
+      foreach ($p in $pw) { & $Adb shell pm disable-user --user 0 $p | Out-Null; Write-Host "  switched off: $p" }
+      & $Adb shell cmd package set-home-activity $HomeAct | Out-Null
+      $now = ((& $Adb shell cmd package resolve-activity --brief -a android.intent.action.MAIN -c android.intent.category.HOME) | Select-Object -Last 1).Trim()
+      Write-Host "To bring PatchWall back later:"; foreach ($p in $pw) { Write-Host "  adb shell pm enable $p" }
+    }
+  }
+}
+
 if ($now -like "$Pkg/*") {
   Say "Done. VUE is installed and is the Home app."
   Write-Host "In VUE Kids with the lock on, Home asks for the parent PIN. Outside Kids, Home goes to the TV home screen as usual."
