@@ -18,10 +18,10 @@
       "sha256": "ba397af3515af00dc9d0a1688482bd9a4d099d862387f54085aa8f8a8a088e9c"
     },
     "lgWebOS": {
-      "version": "1.58.93",
+      "version": "1.58.94",
       "package": "IPK",
       "download": "downloads/VUE-LG-webOS-latest.ipk",
-      "sha256": "9c8a152b1dfc1fc8a3d9d05ebfd5d483bce589ec9c8a3c8a8c3a80cf7426477e"
+      "sha256": "b57f107cc8ad6f3e576bb0ff79372855b25044e4a1275c2174be0bf6582cacc1"
     },
     "samsungTizen": {
       "available": false,
