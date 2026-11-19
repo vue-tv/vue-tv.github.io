@@ -6,16 +6,16 @@
   "installRequiresUserConfirmation": true,
   "platforms": {
     "androidTv": {
-      "version": "1.60.92",
+      "version": "1.60.93",
       "package": "APK",
       "download": "downloads/VUE-Android-TV-latest.apk",
-      "sha256": "d50a56397f1b5f53e7275db520bfa64f19b6e3f2cc3581d1810461f6e21acb24"
+      "sha256": "6e6f54f09bda4ed46a3511e61a69057bbce1ad645094498b2806b16ada2475ee"
     },
     "androidCar": {
-      "version": "1.60.92",
+      "version": "1.60.93",
       "package": "APK",
       "download": "downloads/VUE-Android-Car-latest.apk",
-      "sha256": "0e01d4e818c96ba1b4902403f49c0740ed52265b013960defcfb1251561ab33c"
+      "sha256": "45c01a99398079cd22a5731a6df1152d94ad37f44ed0b8de97dbd0e39b82fe3a"
     },
     "lgWebOS": {
       "version": "1.58.96",
