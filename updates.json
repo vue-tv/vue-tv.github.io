@@ -6,22 +6,22 @@
   "installRequiresUserConfirmation": true,
   "platforms": {
     "androidTv": {
-      "version": "1.61.0",
+      "version": "1.61.1",
       "package": "APK",
       "download": "downloads/VUE-Android-TV-latest.apk",
-      "sha256": "aea42fd4381af36ee8baefce2e74d00e512ea48106ebdfb34479b5b3f0f2f86c"
+      "sha256": "3a4eb75fbd490770f6d1e1332a018bfc0b8d3148b79ce47c9f1216b173954d4b"
     },
     "androidCar": {
-      "version": "1.61.0",
+      "version": "1.61.1",
       "package": "APK",
       "download": "downloads/VUE-Android-Car-latest.apk",
-      "sha256": "37ed17bcc3e83cd5666f8a110399ced9dd6b7a8c5a0dd21eba2c017d14471736"
+      "sha256": "b3b141b1003961512e4c3db3d22723b582b823bb3391c88a449eb90a9de4fa00"
     },
     "lgWebOS": {
-      "version": "1.58.96",
+      "version": "1.58.97",
       "package": "IPK",
       "download": "downloads/VUE-LG-webOS-latest.ipk",
-      "sha256": "801e0baef7a0aecbf92c2bbef4ed949ef3177d16c8f94f4755acb2d75dba8a9f"
+      "sha256": "70275a6dcdff8fcd03620345d8582ef192f0704b1ab82dd23785583a10cddb4a"
     },
     "samsungTizen": {
       "available": false,
