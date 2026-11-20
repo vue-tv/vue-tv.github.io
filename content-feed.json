@@ -1,19 +1,19 @@
 {
   "product": "VUE",
   "schemaVersion": 1,
-  "revision": "p147987-39e0855d",
-  "updatedAt": "2026-11-19T07:19:33+00:00",
+  "revision": "p147988-e937bf31",
+  "updatedAt": "2026-11-20T07:08:48+00:00",
   "backgrounds": [
-    "/assets/content/backgrounds/riyadh-kingdom-centre.jpg",
-    "/assets/content/backgrounds/diriyah-turaif.jpg",
-    "/assets/content/backgrounds/saudi-riyadh-skyline.jpg",
+    "/assets/content/backgrounds/abha-asir.jpg",
     "/assets/content/backgrounds/saudi-jeddah-corniche-2.jpg",
-    "/assets/content/backgrounds/jeddah-albalad.jpg",
-    "/assets/content/backgrounds/alula-elephant-rock.jpg"
+    "/assets/content/backgrounds/saudi-riyadh-skyline.jpg",
+    "/assets/content/backgrounds/alula-elephant-rock.jpg",
+    "/assets/content/backgrounds/saudi-riyadh-kafd.jpg",
+    "/assets/content/backgrounds/jeddah-albalad.jpg"
   ],
   "sportBackgrounds": [
     "/assets/content/backgrounds/sport-calm-pitch.jpg",
-    "/assets/content/backgrounds/stadium-night-match.jpg",
-    "/assets/content/backgrounds/stadium-king-fahd.jpg"
+    "/assets/content/backgrounds/stadium-king-fahd.jpg",
+    "/assets/content/backgrounds/stadium-night-match.jpg"
   ]
 }
