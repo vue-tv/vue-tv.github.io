@@ -221,6 +221,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
 <section class="stats" aria-label="إحصائيات VUE"><div class="wrap stats-row">
   <div class="stat"><b id="stat-visits">…</b><span>مشاهدة للموقع</span></div>
   <div class="stat"><b id="stat-downloads">…</b><span>مرة تحميل وتحديث</span></div>
+  <div class="stat"><b id="stat-devices">…</b><span>جهاز استخدم VUE</span></div>
   <div class="stat"><b id="stat-active">…</b><span>جهاز استخدم VUE اليوم</span></div>
 </div></section>
 <footer><div class="wrap"><span>برمجة وتطوير: أحمد بن سعيد · iaoili@</span><span>VUE © 2026</span></div></footer>
@@ -248,15 +249,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
    - page views: every time this page is opened;
    - downloads & updates: counted by the apps once per installed version (plus direct APK
      downloads / copied install commands here);
-   - devices active today: each TV that opens VUE, once per day (Saudi time).
+   - devices active today: each TV that opens VUE, once per day (Saudi time);
+   - devices (all time): each TV / car / LG counts once in its life.
    A snapshot saved on this site every 30 minutes (stats.json) is shown when the service is
    unreachable; the page always shows the larger value. Page views are also counted on a backup
    service (Abacus, abacus.jasoncameron.dev) for networks that block the main one. */
 (function () {
   var API = "https://countapi.mileshilliard.com/api/v1/";
   function day() { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10).replace(/-/g, ""); }
-  var KEYS = { visits: "vue-tv-sa-site-visits", downloads: "vue-tv-sa-app-downloads", active: "vue-tv-sa-active-" + day() };
-  var best = { visits: -1, downloads: -1, active: -1 };
+  var KEYS = { visits: "vue-tv-sa-site-visits", downloads: "vue-tv-sa-app-downloads", devices: "vue-tv-sa-devices", active: "vue-tv-sa-active-" + day() };
+  var best = { visits: -1, downloads: -1, devices: -1, active: -1 };
   function ar(n) { return String(n).replace(/\d/g, function (d) { return "٠١٢٣٤٥٦٧٨٩"[d]; }); }
   function show(key, v) {
     if (typeof v !== "number" || v < best[key]) return; best[key] = v;
@@ -269,15 +271,16 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
       .catch(function () { if (tries > 1) setTimeout(function () { call(kind, key, tries - 1); }, tries === 3 ? 1500 : 4000); });
   }
   fetch("stats.json?t=" + Math.floor(Date.now() / 300000), { cache: "no-store" }).then(function (r) { return r.json(); })
-    .then(function (j) { show("visits", j.visits); show("downloads", j.downloads); if (j.day === day()) show("active", j.active); }).catch(function () {});
+    .then(function (j) { show("visits", j.visits); show("downloads", j.downloads); if (typeof j.devices === "number") show("devices", j.devices); if (j.day === day()) show("active", j.active); }).catch(function () {});
   call("hit", "visits", 3);
   call("get", "downloads", 3);
   call("get", "active", 3);
+  call("get", "devices", 3);
   // backup visits counter (Abacus), for networks that block the main counter service; the page shows the larger
   fetch("https://abacus.jasoncameron.dev/hit/vue-tv-sa/site-visits", { cache: "no-store" })
     .then(function (r) { return r.json(); }).then(function (j) { show("visits", j && j.value); }).catch(function () {});
   // never leave «…» on screen: after the retries, an unknown value shows as «—»
-  setTimeout(function () { ["visits", "downloads", "active"].forEach(function (k) { var el = document.getElementById("stat-" + k); if (el && best[k] < 0) el.textContent = "—"; }); }, 12000);
+  setTimeout(function () { ["visits", "downloads", "devices", "active"].forEach(function (k) { var el = document.getElementById("stat-" + k); if (el && best[k] < 0) el.textContent = "—"; }); }, 12000);
   document.addEventListener("click", function (e) {
     var t = e.target.closest ? e.target.closest("a,button") : null; if (!t) return;
     var href = t.getAttribute("href") || "";
