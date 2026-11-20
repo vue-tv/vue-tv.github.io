@@ -250,7 +250,8 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
      downloads / copied install commands here);
    - devices active today: each TV that opens VUE, once per day (Saudi time).
    A snapshot saved on this site every 30 minutes (stats.json) is shown when the service is
-   unreachable; the page always shows the larger value. */
+   unreachable; the page always shows the larger value. Page views are also counted on a backup
+   service (Abacus, abacus.jasoncameron.dev) for networks that block the main one. */
 (function () {
   var API = "https://countapi.mileshilliard.com/api/v1/";
   function day() { return new Date(Date.now() + 3 * 3600000).toISOString().slice(0, 10).replace(/-/g, ""); }
@@ -272,6 +273,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
   call("hit", "visits", 3);
   call("get", "downloads", 3);
   call("get", "active", 3);
+  // backup visits counter (Abacus), for networks that block the main counter service; the page shows the larger
+  fetch("https://abacus.jasoncameron.dev/hit/vue-tv-sa/site-visits", { cache: "no-store" })
+    .then(function (r) { return r.json(); }).then(function (j) { show("visits", j && j.value); }).catch(function () {});
+  // never leave «…» on screen: after the retries, an unknown value shows as «—»
+  setTimeout(function () { ["visits", "downloads", "active"].forEach(function (k) { var el = document.getElementById("stat-" + k); if (el && best[k] < 0) el.textContent = "—"; }); }, 12000);
   document.addEventListener("click", function (e) {
     var t = e.target.closest ? e.target.closest("a,button") : null; if (!t) return;
     var href = t.getAttribute("href") || "";
