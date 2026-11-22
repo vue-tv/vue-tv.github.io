@@ -1,27 +1,27 @@
 {
   "product": "VUE",
   "releaseChannel": "stable",
-  "updated": "2026-11-19",
+  "updated": "2026-11-22",
   "source": "/",
   "installRequiresUserConfirmation": true,
   "platforms": {
     "androidTv": {
-      "version": "1.61.3",
+      "version": "1.61.4",
       "package": "APK",
       "download": "downloads/VUE-Android-TV-latest.apk",
-      "sha256": "47a69f86c8e7e83e44c7d98c4885c5c3a63ad3531f52956da3d1cbe53c153d53"
+      "sha256": "e23ad6ccd2bc5c662502308afcb02194377f6b00397263ae5603b0726106d17e"
     },
     "androidCar": {
-      "version": "1.61.3",
+      "version": "1.61.4",
       "package": "APK",
       "download": "downloads/VUE-Android-Car-latest.apk",
-      "sha256": "eb89c5cf85c95012b62ff1c08a92c2447e7e196f7b2e865fcc20e2d50738f5d4"
+      "sha256": "ab9f47f871c834cdae648f2ad5c682191b898e5b0619870694d0b8393467d5bd"
     },
     "lgWebOS": {
-      "version": "1.58.98",
+      "version": "1.58.99",
       "package": "IPK",
       "download": "downloads/VUE-LG-webOS-latest.ipk",
-      "sha256": "72c2c0d956defff252ed59667bde1e655bd1a1a1dfb679836977112804c9915a"
+      "sha256": "147a13e1c36420901d9e67caa0dc3ca2653f63ed7b1d9a74cfae079543c03da9"
     },
     "samsungTizen": {
       "available": false,
