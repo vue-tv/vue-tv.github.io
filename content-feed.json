@@ -1,15 +1,15 @@
 {
   "product": "VUE",
   "schemaVersion": 1,
-  "revision": "p147988-e937bf31",
-  "updatedAt": "2026-11-24T09:50:02+00:00",
+  "revision": "p147989-7f3a1b68",
+  "updatedAt": "2026-11-25T08:25:42+00:00",
   "backgrounds": [
     "/assets/content/backgrounds/abha-asir.jpg",
-    "/assets/content/backgrounds/saudi-jeddah-corniche-2.jpg",
-    "/assets/content/backgrounds/saudi-riyadh-skyline.jpg",
     "/assets/content/backgrounds/alula-elephant-rock.jpg",
-    "/assets/content/backgrounds/saudi-riyadh-kafd.jpg",
-    "/assets/content/backgrounds/jeddah-albalad.jpg"
+    "/assets/content/backgrounds/riyadh-kingdom-centre.jpg",
+    "/assets/content/backgrounds/saudi-riyadh-skyline.jpg",
+    "/assets/content/backgrounds/jeddah-albalad.jpg",
+    "/assets/content/backgrounds/saudi-riyadh-kafd.jpg"
   ],
   "sportBackgrounds": [
     "/assets/content/backgrounds/sport-calm-pitch.jpg",
